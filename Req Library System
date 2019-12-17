@@ -1,0 +1,18 @@
+Library System:
+    - search
+    - generate report
+    - Handle Books
+        + edit
+        + add
+        + delete
+        + update
+        + rent
+    - Handle Users
+        + add
+        + delete
+        + update
+        + login
+        + register
+    - Export DB to excel
+    - Have different themes
+        + Theme Window position

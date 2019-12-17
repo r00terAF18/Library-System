@@ -1,0 +1,10 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+	<qresource>
+		<file>Icon/Books.png</file>
+		<file>Icon/Settings.png</file>
+		<file>Icon/Theme.png</file>
+		<file>Icon/Today.png</file>
+		<file>Icon/User.png</file>
+	</qresource>
+</RCC>
