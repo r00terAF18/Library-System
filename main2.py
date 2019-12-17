@@ -412,6 +412,10 @@ class Ui_MainWindow(object):
             duration = int(self.comboBoxDuration.currentText())
 
             cur.execute('INSERT INTO OperationsDB(Name, Type, Duration) VALUES(?, ?, ?)', (bookTitle, operation, duration))
+            connection.commit()
+            connection.close()
+            self.statusbar.showMessage(f'Succecfully added a new operation Title = {bookTitle}, Operation = {operation}, Duration = {duration}W')
+            
 
         def addNewBook():
             connection = sqlite3.connect('LibraryDB.db')
