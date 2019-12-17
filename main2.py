@@ -467,15 +467,6 @@ class Ui_MainWindow(object):
             cur.execute('SELECT * FROM CategoriesDB')
             data = cur.fetchall()
 
-            # if data:
-            #     # self.tableCategory.setRowCount(0)
-            #     for rowNum, rowData in enumerate(data):
-            #         self.tableCategory.insertRow(rowNum)
-            #         for colNum, data in enumerate(rowData):
-            #             print(f'{data}')
-            #             self.tableCategory.setItem(rowNum, colNum, QTableWidgetItem(str(data)))
-
-
             if data:
                 col = 0
                 for Names in data:
