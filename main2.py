@@ -415,7 +415,7 @@ class Ui_MainWindow(object):
             connection.commit()
             connection.close()
             self.statusbar.showMessage(f'Succecfully added a new operation Title = {bookTitle}, Operation = {operation}, Duration = {duration}W')
-            
+
 
         def addNewBook():
             connection = sqlite3.connect('LibraryDB.db')
@@ -503,6 +503,7 @@ class Ui_MainWindow(object):
         self.btnAddCategory.clicked.connect(addNewCat)
         self.btnAddAuthor.clicked.connect(addNewAutohr)
         self.btnAddPublisher.clicked.connect(addNewPublisher)
+        self.btnAddOperation.clicked.connect(addNewOperation)
 
     def retranslateUi(self, MainWindow):
         _translate = QCoreApplication.translate
