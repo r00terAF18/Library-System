@@ -411,7 +411,7 @@ class Ui_MainWindow(object):
             operation = self.comboBoxOperation.currentText().text()
             duration = int(self.comboBoxDuration.currentText())
 
-            cur.execute('INSERT INTO OperationsDB(Name, Type, Duration) VALUES(?, ?, ?)')
+            cur.execute('INSERT INTO OperationsDB(Name, Type, Duration) VALUES(?, ?, ?)', (bookTitle, operation, duration))
 
         def addNewBook():
             connection = sqlite3.connect('LibraryDB.db')
