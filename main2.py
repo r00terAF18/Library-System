@@ -482,7 +482,8 @@ class Ui_MainWindow(object):
 
         def updateSettingsDB():
             clearTables()
-            # first initilise a list so that we can loop over with mostly the same code-base
+            # first initilise a list so that we can loop over
+            #  with mostly the same code-base
             tables = ['AuthorsDB', 'CategoriesDB', 'PublishersDB']
             connection = sqlite3.connect('LibraryDB.db')
             cur = connection.cursor()
