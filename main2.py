@@ -390,7 +390,7 @@ class Ui_MainWindow(object):
 
         def showSettingsTab():
             self.mainTab.setCurrentIndex(3)
-            updateAllDB()
+            updateSettingsDB()
 
         def showThemeWindow():
             self.ThemeWindow.setVisible(True)
@@ -479,14 +479,51 @@ class Ui_MainWindow(object):
                     rowCount = self.tableCategory.rowCount()
                     self.tableCategory.insertRow(rowCount)
 
-        def updateAllDB():
+
+        def updateSettingsDB():
+            clearTables()
             # first initilise a list so that we can loop over with mostly the same code-base
-            tables = ['AuthorsDB', 'BooksDB', 'CategoriesDB', 'PublishersDB', 'OperationsDB']
+            tables = ['AuthorsDB', 'CategoriesDB', 'PublishersDB']
             connection = sqlite3.connect('LibraryDB.db')
             cur = connection.cursor()
             for table in tables:
                 query = f'SELECT Name FROM {table}'
-                print(query)
+                # print(query)
+                cur.execute(query)
+                data = cur.fetchall()
+                if data:
+                    if table == 'AuthorsDB':
+                        self.tableAuthor.insertRow(0)
+                        for row, form in enumerate(data):
+                            for col, item in enumerate(form):
+                                self.tableAuthor.setItem(row, col, QTableWidgetItem(str(item)))
+                                col += 1
+
+                            rowCount = self.tableAuthor.rowCount()
+                            self.tableAuthor.insertRow(rowCount)
+                    
+                    elif table == 'CategoriesDB':
+                        self.tableCategory.insertRow(0)
+                        for row, form in enumerate(data):
+                            for col, item in enumerate(form):
+                                self.tableCategory.setItem(row, col, QTableWidgetItem(str(item)))
+                                col += 1
+
+                            rowCount = self.tableCategory.rowCount()
+                            self.tableCategory.insertRow(rowCount)
+
+                    elif table == 'PublishersDB':
+                        self.tablePublisher.insertRow(0)
+                        for row, form in enumerate(data):
+                            for col, item in enumerate(form):
+                                self.tablePublisher.setItem(row, col, QTableWidgetItem(str(item)))
+                                col += 1
+
+                            rowCount = self.tablePublisher.rowCount()
+                            self.tablePublisher.insertRow(rowCount)
+        
+        def clearTables():
+
 
         def updateComboBox():
             pass
