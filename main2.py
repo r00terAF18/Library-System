@@ -390,7 +390,7 @@ class Ui_MainWindow(object):
 
         def showSettingsTab():
             self.mainTab.setCurrentIndex(3)
-            updateDB()
+            updateAllDB()
 
         def showThemeWindow():
             self.ThemeWindow.setVisible(True)
@@ -460,6 +460,8 @@ class Ui_MainWindow(object):
             self.statusbar.showMessage(f'Successfully added new Publisher \'{publisher}\'')
 
         def updateDB():
+            ### first we need to clear out the entries and then add the new ones
+            self.tableCategory.clearContents()
             ### Update the databse view for Categories ###
             connection = sqlite3.connect('LibraryDB.db')
             # connection.row_factory = sqlite3.Row
@@ -476,6 +478,15 @@ class Ui_MainWindow(object):
 
                     rowCount = self.tableCategory.rowCount()
                     self.tableCategory.insertRow(rowCount)
+
+        def updateAllDB():
+            # first initilise a list so that we can loop over with mostly the same code-base
+            tables = ['AuthorsDB', 'BooksDB', 'CategoriesDB', 'PublishersDB', 'OperationsDB']
+            connection = sqlite3.connect('LibraryDB.db')
+            cur = connection.cursor()
+            for table in tables:
+                query = f'SELECT Name FROM {table}'
+                print(query)
 
         def updateComboBox():
             pass
