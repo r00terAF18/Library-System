@@ -522,8 +522,12 @@ class Ui_MainWindow(object):
                             rowCount = self.tablePublisher.rowCount()
                             self.tablePublisher.insertRow(rowCount)
         
-        def clearTables():
 
+        def clearTables():
+            self.tableAuthor.clearContents()
+            self.tableAuthor.setColumnCount(1)
+            self.tableAuthor.setRowCount(0)
+            
 
         def updateComboBox():
             pass
