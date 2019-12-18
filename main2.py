@@ -468,14 +468,12 @@ class Ui_MainWindow(object):
             data = cur.fetchall()
 
             if data:
-                row = 0
                 for Names in data:
+                    row = Names[0]
                     name = QTableWidgetItem(str(Names[1])).text()
                     print(f'Category Name >>> ID={Names[0]} / Name={str(name)}')
-                    self.tableCategory.setItem(row, 1, name)
-                    row += 1
-                    # rowPos = self.tableCategory.rowCount()
-                    # self.tableCategory.insertRow(rowPos)
+                    self.tableCategory.setItem(row, 1, QTableWidgetItem(name))
+
 
         def updateComboBox():
             pass
@@ -573,7 +571,7 @@ class Ui_MainWindow(object):
         self.btnLogin.setText(_translate("MainWindow", "Login"))
         self.mainTab.setTabText(self.mainTab.indexOf(self.tab_3), _translate("MainWindow", "Users"))
         item = self.tableCategory.horizontalHeaderItem(0)
-        item.setText(_translate("MainWindow", "Category"))
+        # item.setText(_translate("MainWindow", "Category"))
         self.txtAddNewCategory.setPlaceholderText(_translate("MainWindow", "Enter New Category Name"))
         self.btnAddCategory.setText(_translate("MainWindow", "Add"))
         self.tabSubSettings.setTabText(self.tabSubSettings.indexOf(self.tab_7), _translate("MainWindow", "Categories"))
