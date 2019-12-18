@@ -415,6 +415,8 @@ class Ui_MainWindow(object):
             connection.commit()
             connection.close()
             self.statusbar.showMessage(f'Succecfully added a new operation Title = {bookTitle}, Operation = {operation}, Duration = {duration}W')
+            self.txtOperationBookTitle.setText('')
+
 
 
         def addNewBook():
@@ -535,6 +537,9 @@ class Ui_MainWindow(object):
             self.tablePublisher.clearContents()
             self.tablePublisher.setColumnCount(1)
             self.tablePublisher.setRowCount(0)
+            self.tableMain.clearContents()
+            self.tableMain.setColumnCount(1)
+            self.tableMain.setRowCount(0)
 
 
 
