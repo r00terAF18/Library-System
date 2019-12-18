@@ -251,7 +251,7 @@ class Ui_MainWindow(object):
         self.tableCategory = QTableWidget(self.tab_7)
         self.tableCategory.setGeometry(QRect(0, 70, 841, 351))
         self.tableCategory.setObjectName("tableCategory")
-        self.tableCategory.setColumnCount(2)
+        self.tableCategory.setColumnCount(0)
         self.tableCategory.setRowCount(0)
         item = QTableWidgetItem()
         self.tableCategory.setHorizontalHeaderItem(0, item)
@@ -468,12 +468,12 @@ class Ui_MainWindow(object):
             data = cur.fetchall()
 
             if data:
-                col = 0
+                row = 0
                 for Names in data:
                     name = QTableWidgetItem(str(Names[1])).text()
                     print(f'Category Name >>> ID={Names[0]} / Name={str(name)}')
-                    self.tableCategory.setItem(Names[0], 0, QTableWidgetItem(str(name)))
-                    col += 1
+                    self.tableCategory.setItem(row, 1, name)
+                    row += 1
                     # rowPos = self.tableCategory.rowCount()
                     # self.tableCategory.insertRow(rowPos)
 
