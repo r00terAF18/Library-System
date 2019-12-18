@@ -357,13 +357,13 @@ class Ui_MainWindow(object):
         self.label_3.setFont(font)
         self.label_3.setObjectName("label_3")
         MainWindow.setCentralWidget(self.centralwidget)
-        self.statusbar = QStatusBar(MainWindow)
-        self.statusbar.setObjectName("statusbar")
-        MainWindow.setStatusBar(self.statusbar)
-        self.menubar = QMenuBar(MainWindow)
-        self.menubar.setGeometry(QRect(0, 0, 968, 21))
-        self.menubar.setObjectName("menubar")
-        MainWindow.setMenuBar(self.menubar)
+        # self.statusbar = QStatusBar(MainWindow)
+        # self.statusbar.setObjectName("statusbar")
+        # MainWindow.setStatusBar(self.statusbar)
+        # self.menubar = QMenuBar(MainWindow)
+        # self.menubar.setGeometry(QRect(0, 0, 968, 21))
+        # self.menubar.setObjectName("menubar")
+        # MainWindow.setMenuBar(self.menubar)
 
         self.retranslateUi(MainWindow)
         self.mainTab.setCurrentIndex(0)
@@ -414,7 +414,8 @@ class Ui_MainWindow(object):
             cur.execute('INSERT INTO OperationsDB(Name, Type, Duration) VALUES(?, ?, ?)', (bookTitle, operation, duration))
             connection.commit()
             connection.close()
-            self.statusbar.showMessage(f'Succecfully added a new operation Title = {bookTitle}, Operation = {operation}, Duration = {duration}W')
+            self.txtOperationBookTitle.setText('')
+
 
 
         def addNewBook():
@@ -435,7 +436,6 @@ class Ui_MainWindow(object):
             cur.execute('INSERT INTO CategoriesDB(Name) VALUES(?)', (category, ))
             connection.commit()
             connection.close()
-            self.statusbar.showMessage(f'Successfully added new Category \'{category}\'')
             self.txtAddNewCategory.setText('')
             updateSettingsDB()
 
@@ -446,7 +446,6 @@ class Ui_MainWindow(object):
             cur.execute('INSERT INTO AuthorsDB(Name) VALUES(?)', (author, ))
             connection.commit()
             connection.close()
-            self.statusbar.showMessage(f'Successfully added new Author \'{author}\'')
             self.txtAddNewAuthor.setText('')
             updateSettingsDB()
 
@@ -457,7 +456,6 @@ class Ui_MainWindow(object):
             cur.execute('INSERT INTO PublishersDB(Name) VALUES(?)', (publisher,))
             connection.commit()
             connection.close()
-            self.statusbar.showMessage(f'Successfully added new Publisher \'{publisher}\'')
             self.txtAddNewPublisher.setText('')
             updateSettingsDB()
 
@@ -535,6 +533,9 @@ class Ui_MainWindow(object):
             self.tablePublisher.clearContents()
             self.tablePublisher.setColumnCount(1)
             self.tablePublisher.setRowCount(0)
+            self.tableMain.clearContents()
+            self.tableMain.setColumnCount(1)
+            self.tableMain.setRowCount(0)
 
 
 
