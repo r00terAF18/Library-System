@@ -251,7 +251,7 @@ class Ui_MainWindow(object):
         self.tableCategory = QTableWidget(self.tab_7)
         self.tableCategory.setGeometry(QRect(0, 70, 841, 351))
         self.tableCategory.setObjectName("tableCategory")
-        self.tableCategory.setColumnCount(2)
+        self.tableCategory.setColumnCount(1)
         self.tableCategory.setRowCount(0)
         item = QTableWidgetItem()
         self.tableCategory.setHorizontalHeaderItem(0, item)
@@ -462,17 +462,20 @@ class Ui_MainWindow(object):
         def updateDB():
             ### Update the databse view for Categories ###
             connection = sqlite3.connect('LibraryDB.db')
-            connection.row_factory = sqlite3.Row
+            # connection.row_factory = sqlite3.Row
             cur = connection.cursor()
-            cur.execute('SELECT * FROM CategoriesDB')
+            cur.execute('SELECT Name FROM CategoriesDB')
             data = cur.fetchall()
 
             if data:
-                for Names in data:
-                    row = Names[0]
-                    name = QTableWidgetItem(str(Names[1])).text()
-                    print(f'Category Name >>> ID={Names[0]} / Name={str(name)}')
-                    self.tableCategory.setItem(row, row, QTableWidgetItem(name))
+                self.tableCategory.insertRow(0)
+                for row, form in enumerate(data):
+                    for col, item in enumerate(form):
+                        self.tableCategory.setItem(row, col, QTableWidgetItem(str(item)))
+                        col += 1
+
+                        rowPos = self.tableCategory.rowCount()
+                        self.tableCategory.insertRow(rowPos)
 
 
         def updateComboBox():
