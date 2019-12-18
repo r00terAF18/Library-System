@@ -251,7 +251,7 @@ class Ui_MainWindow(object):
         self.tableCategory = QTableWidget(self.tab_7)
         self.tableCategory.setGeometry(QRect(0, 70, 841, 351))
         self.tableCategory.setObjectName("tableCategory")
-        self.tableCategory.setColumnCount(2)
+        self.tableCategory.setColumnCount(1)
         self.tableCategory.setRowCount(0)
         item = QTableWidgetItem()
         self.tableCategory.setHorizontalHeaderItem(0, item)
@@ -462,18 +462,20 @@ class Ui_MainWindow(object):
         def updateDB():
             ### Update the databse view for Categories ###
             connection = sqlite3.connect('LibraryDB.db')
-            connection.row_factory = sqlite3.Row
+            # connection.row_factory = sqlite3.Row
             cur = connection.cursor()
-            cur.execute('SELECT * FROM CategoriesDB')
+            cur.execute('SELECT Name FROM CategoriesDB')
             data = cur.fetchall()
 
             if data:
-                for Names in data:
-                    row = Names[0]
-                    name = QTableWidgetItem(str(Names[1])).text()
-                    print(f'Category Name >>> ID={Names[0]} / Name={str(name)}')
-                    self.tableCategory.setItem(row, row, QTableWidgetItem(name))
+                self.tableCategory.insertRow(0)
+                for row, form in enumerate(data):
+                    for col, item in enumerate(form):
+                        self.tableCategory.setItem(row, col, QTableWidgetItem(str(item)))
+                        col += 1
 
+                    rowCount = self.tableCategory.rowCount()
+                    self.tableCategory.insertRow(rowCount)
 
         def updateComboBox():
             pass
@@ -571,7 +573,7 @@ class Ui_MainWindow(object):
         self.btnLogin.setText(_translate("MainWindow", "Login"))
         self.mainTab.setTabText(self.mainTab.indexOf(self.tab_3), _translate("MainWindow", "Users"))
         item = self.tableCategory.horizontalHeaderItem(0)
-        # item.setText(_translate("MainWindow", "Category"))
+        item.setText(_translate("MainWindow", "Category"))
         self.txtAddNewCategory.setPlaceholderText(_translate("MainWindow", "Enter New Category Name"))
         self.btnAddCategory.setText(_translate("MainWindow", "Add"))
         self.tabSubSettings.setTabText(self.tabSubSettings.indexOf(self.tab_7), _translate("MainWindow", "Categories"))
