@@ -527,7 +527,12 @@ class Ui_MainWindow(object):
             self.tableAuthor.clearContents()
             self.tableAuthor.setColumnCount(1)
             self.tableAuthor.setRowCount(0)
-            
+            self.tableCategory.clearContents()
+            self.tableCategory.setColumnCount(1)
+            self.tableCategory.setRowCount(0)
+            self.tablePublisher.clearContents()
+            self.tablePublisher.setColumnCount(1)
+            self.tablePublisher.setRowCount(0)
 
         def updateComboBox():
             pass
