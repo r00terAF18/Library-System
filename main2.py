@@ -435,9 +435,9 @@ class Ui_MainWindow(object):
             cur.execute('INSERT INTO CategoriesDB(Name) VALUES(?)', (category, ))
             connection.commit()
             connection.close()
-            updateDB()
             self.statusbar.showMessage(f'Successfully added new Category \'{category}\'')
             self.txtAddNewCategory.setText('')
+            updateSettingsDB()
 
         def addNewAutohr():
             connection = sqlite3.connect('LibraryDB.db')
@@ -446,8 +446,9 @@ class Ui_MainWindow(object):
             cur.execute('INSERT INTO AuthorsDB(Name) VALUES(?)', (author, ))
             connection.commit()
             connection.close()
-            updateDB()
             self.statusbar.showMessage(f'Successfully added new Author \'{author}\'')
+            self.txtAddNewAuthor.setText('')
+            updateSettingsDB()
 
         def addNewPublisher():
             connection = sqlite3.connect('LibraryDB.db')
@@ -456,8 +457,9 @@ class Ui_MainWindow(object):
             cur.execute('INSERT INTO PublishersDB(Name) VALUES(?)', (publisher,))
             connection.commit()
             connection.close()
-            updateDB()
             self.statusbar.showMessage(f'Successfully added new Publisher \'{publisher}\'')
+            self.txtAddNewPublisher.setText('')
+            updateSettingsDB()
 
         def updateDB():
             ### first we need to clear out the entries and then add the new ones
@@ -533,10 +535,6 @@ class Ui_MainWindow(object):
             self.tablePublisher.clearContents()
             self.tablePublisher.setColumnCount(1)
             self.tablePublisher.setRowCount(0)
-
-        def updateComboBox():
-            pass
-
 
 
 
