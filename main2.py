@@ -251,7 +251,7 @@ class Ui_MainWindow(object):
         self.tableCategory = QTableWidget(self.tab_7)
         self.tableCategory.setGeometry(QRect(0, 70, 841, 351))
         self.tableCategory.setObjectName("tableCategory")
-        self.tableCategory.setColumnCount(0)
+        self.tableCategory.setColumnCount(2)
         self.tableCategory.setRowCount(0)
         item = QTableWidgetItem()
         self.tableCategory.setHorizontalHeaderItem(0, item)
@@ -472,7 +472,7 @@ class Ui_MainWindow(object):
                     row = Names[0]
                     name = QTableWidgetItem(str(Names[1])).text()
                     print(f'Category Name >>> ID={Names[0]} / Name={str(name)}')
-                    self.tableCategory.setItem(row, 1, QTableWidgetItem(name))
+                    self.tableCategory.setItem(row, row, QTableWidgetItem(name))
 
 
         def updateComboBox():
