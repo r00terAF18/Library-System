@@ -425,13 +425,13 @@ class Ui_MainWindow(object):
             bookTitle = self.txtAddBookTitle.text()
             bookCode = self.txtAddBookCode.text()
             bookDesc = self.txtAddBookDesc.toPlainText()
-            bookCat = self.cmbBoxAddBookCat.currentText()
-            bookAuthor = self.cmbBoxAddBookAuthor.currentText()
-            bookPublisher = self.cmbBoxAddBookPublisher.currentText()
+            bookCat = self.cmbBoxAddBookCat.currentIndex()
+            bookAuthor = self.cmbBoxAddBookAuthor.currentIndex()
+            bookPublisher = self.cmbBoxAddBookPublisher.currentIndex()
             bookPrice = float(self.txtAddBookPrice.text())
 
-            query = f'INSERT INTO BooksDB(Name, Descreption, Code, Category, Author, Publisher, Price) VALUES({bookTitle}, {bookDesc}, {bookCode}, {bookCat}, {bookAuthor}, {bookPublisher}, {bookPrice})'
-            cur.execute(query)
+            # query = f' VALUES({bookTitle}, {bookDesc}, {bookCode}, {bookCat}, {bookAuthor}, {bookPublisher}, {bookPrice}'
+            cur.execute(f'INSERT INTO BooksDB(Name, Descreption, Code, Category, Author, Publisher, Price) VALUES(?, ?, ?, ?, ?, ?, ?)', ({bookTitle}, {bookDesc}, {bookCode}, {bookCat}, {bookAuthor}, {bookPublisher}, {bookPrice}))
             connection.commit()
             connection.close() 
 
