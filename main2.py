@@ -424,10 +424,23 @@ class Ui_MainWindow(object):
 
             bookTitle = self.txtAddBookTitle.text()
             bookCode = self.txtAddBookCode.text()
-            bookCat = self.cmbBoxAddBookCat.currentText()
-            bookAuthor = self.cmbBoxAddBookAuthor.currentText()
-            bookPublisher = self.cmbBoxAddBookPublisher.currentText()
-            bookPrice = self.txtAddBookPrice.text()
+            bookDesc = self.txtAddBookDesc.toPlainText()
+            bookCat = self.cmbBoxAddBookCat.currentIndex()
+            bookAuthor = self.cmbBoxAddBookAuthor.currentIndex()
+            bookPublisher = self.cmbBoxAddBookPublisher.currentIndex()
+            bookPrice = float(self.txtAddBookPrice.text())
+
+            cur.execute(f'INSERT INTO BooksDB(Name, Descreption, Code, Category, Author, Publisher, Price) VALUES(?, ?, ?, ?, ?, ?, ?)', (bookTitle, bookDesc, bookCode, bookCat, bookAuthor, bookPublisher, bookPrice, ))
+            connection.commit()
+            connection.close()
+
+            self.txtAddBookTitle.setText('')
+            self.txtAddBookCode.setText('')
+            self.txtAddBookDesc.setText('')
+            self.txtAddBookPrice.setText('')
+            self.cmbBoxAddBookCat.setCurrentIndex(0)
+            self.cmbBoxAddBookAuthor.setCurrentIndex(0)
+            self.cmbBoxAddBookPublisher.setCurrentIndex(0)
 
         def addNewCat():
             connection = sqlite3.connect('LibraryDB.db')
@@ -459,9 +472,9 @@ class Ui_MainWindow(object):
             self.txtAddNewPublisher.setText('')
             updateSettingsDB()
 
-        def updateDB():
+        def updateOperationsDB():
             ### first we need to clear out the entries and then add the new ones
-            self.tableCategory.clearContents()
+            clearTables()
             ### Update the databse view for Categories ###
             connection = sqlite3.connect('LibraryDB.db')
             # connection.row_factory = sqlite3.Row
@@ -479,8 +492,8 @@ class Ui_MainWindow(object):
                     rowCount = self.tableCategory.rowCount()
                     self.tableCategory.insertRow(rowCount)
 
-
         def updateSettingsDB():
+            clearComboBoxes()
             clearTables()
             # first initilise a list so that we can loop over
             #  with mostly the same code-base
@@ -498,6 +511,8 @@ class Ui_MainWindow(object):
                         for row, form in enumerate(data):
                             for col, item in enumerate(form):
                                 self.tableAuthor.setItem(row, col, QTableWidgetItem(str(item)))
+                                self.cmbBoxAddBookAuthor.addItem(str(item))
+                                self.cmbBoxEditAuthor.addItem(str(item))
                                 col += 1
 
                             rowCount = self.tableAuthor.rowCount()
@@ -508,6 +523,8 @@ class Ui_MainWindow(object):
                         for row, form in enumerate(data):
                             for col, item in enumerate(form):
                                 self.tableCategory.setItem(row, col, QTableWidgetItem(str(item)))
+                                self.cmbBoxAddBookCat.addItem(str(item))
+                                self.cmbBoxEditCat.addItem(str(item))
                                 col += 1
 
                             rowCount = self.tableCategory.rowCount()
@@ -518,11 +535,20 @@ class Ui_MainWindow(object):
                         for row, form in enumerate(data):
                             for col, item in enumerate(form):
                                 self.tablePublisher.setItem(row, col, QTableWidgetItem(str(item)))
+                                self.cmbBoxAddBookPublisher.addItem(str(item))
+                                self.cmbBoxEditPublisher.addItem(str(item))
                                 col += 1
 
                             rowCount = self.tablePublisher.rowCount()
                             self.tablePublisher.insertRow(rowCount)
-        
+    
+        def clearComboBoxes():
+            self.cmbBoxEditAuthor.clear()
+            self.cmbBoxAddBookAuthor.clear()
+            self.cmbBoxAddBookCat.clear()
+            self.cmbBoxEditCat.clear()
+            self.cmbBoxAddBookPublisher.clear()
+            self.cmbBoxEditPublisher.clear()
 
         def clearTables():
             self.tableAuthor.clearContents()
@@ -552,6 +578,7 @@ class Ui_MainWindow(object):
         self.btnAddAuthor.clicked.connect(addNewAutohr)
         self.btnAddPublisher.clicked.connect(addNewPublisher)
         self.btnAddOperation.clicked.connect(addNewOperation)
+        self.btnAddBook.clicked.connect(addNewBook)
 
     def retranslateUi(self, MainWindow):
         _translate = QCoreApplication.translate
@@ -591,23 +618,23 @@ class Ui_MainWindow(object):
         self.txtAddBookPrice.setPlaceholderText(_translate("MainWindow", "Enter Book Price"))
         self.cmbBoxAddBookCat.setCurrentText(_translate("MainWindow", "Category"))
         self.cmbBoxAddBookCat.setItemText(0, _translate("MainWindow", "Category"))
-        self.cmbBoxAddBookAuthor.setCurrentText(_translate("MainWindow", "Category"))
-        self.cmbBoxAddBookAuthor.setItemText(0, _translate("MainWindow", "Category"))
-        self.cmbBoxAddBookPublisher.setCurrentText(_translate("MainWindow", "Category"))
-        self.cmbBoxAddBookPublisher.setItemText(0, _translate("MainWindow", "Category"))
+        self.cmbBoxAddBookAuthor.setCurrentText(_translate("MainWindow", "Author"))
+        self.cmbBoxAddBookAuthor.setItemText(0, _translate("MainWindow", "Author"))
+        self.cmbBoxAddBookPublisher.setCurrentText(_translate("MainWindow", "Publisher"))
+        self.cmbBoxAddBookPublisher.setItemText(0, _translate("MainWindow", "Publisher"))
         self.btnAddBook.setText(_translate("MainWindow", "Save"))
         self.tabBooks.setTabText(self.tabBooks.indexOf(self.tab_5), _translate("MainWindow", "Add New Book"))
         self.txtEditBookCode.setPlaceholderText(_translate("MainWindow", "Enter Book Code"))
-        self.cmbBoxEditAuthor.setCurrentText(_translate("MainWindow", "Category"))
-        self.cmbBoxEditAuthor.setItemText(0, _translate("MainWindow", "Category"))
+        self.cmbBoxEditAuthor.setCurrentText(_translate("MainWindow", "Author"))
+        self.cmbBoxEditAuthor.setItemText(0, _translate("MainWindow", "Author"))
         self.txtEditBookPrice.setPlaceholderText(_translate("MainWindow", "Enter Book Price"))
         self.btnBookSave.setText(_translate("MainWindow", "Save"))
         self.txtEditBookTitle.setPlaceholderText(_translate("MainWindow", "Edit Book Title"))
         self.txtEditBookDesc.setPlaceholderText(_translate("MainWindow", "Edit Book Description"))
         self.cmbBoxEditCat.setCurrentText(_translate("MainWindow", "Category"))
         self.cmbBoxEditCat.setItemText(0, _translate("MainWindow", "Category"))
-        self.cmbBoxEditPublisher.setCurrentText(_translate("MainWindow", "Category"))
-        self.cmbBoxEditPublisher.setItemText(0, _translate("MainWindow", "Category"))
+        self.cmbBoxEditPublisher.setCurrentText(_translate("MainWindow", "Publisher"))
+        self.cmbBoxEditPublisher.setItemText(0, _translate("MainWindow", "Publisher"))
         self.txtSearchBookTitle.setPlaceholderText(_translate("MainWindow", "Search Book Title"))
         self.btnSearchBooks.setText(_translate("MainWindow", "Search"))
         self.btnDeleteBook.setText(_translate("MainWindow", "Delete"))
