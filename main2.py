@@ -430,10 +430,17 @@ class Ui_MainWindow(object):
             bookPublisher = self.cmbBoxAddBookPublisher.currentIndex()
             bookPrice = float(self.txtAddBookPrice.text())
 
-            # query = f' VALUES({bookTitle}, {bookDesc}, {bookCode}, {bookCat}, {bookAuthor}, {bookPublisher}, {bookPrice}'
-            cur.execute(f'INSERT INTO BooksDB(Name, Descreption, Code, Category, Author, Publisher, Price) VALUES(?, ?, ?, ?, ?, ?, ?)', ({bookTitle}, {bookDesc}, {bookCode}, {bookCat}, {bookAuthor}, {bookPublisher}, {bookPrice}))
+            cur.execute(f'INSERT INTO BooksDB(Name, Descreption, Code, Category, Author, Publisher, Price) VALUES(?, ?, ?, ?, ?, ?, ?)', (bookTitle, bookDesc, bookCode, bookCat, bookAuthor, bookPublisher, bookPrice, ))
             connection.commit()
-            connection.close() 
+            connection.close()
+
+            self.txtAddBookTitle.setText('')
+            self.txtAddBookCode.setText('')
+            self.txtAddBookDesc.setText('')
+            self.txtAddBookPrice.setText('')
+            self.cmbBoxAddBookCat.setCurrentIndex(0)
+            self.cmbBoxAddBookAuthor.setCurrentIndex(0)
+            self.cmbBoxAddBookPublisher.setCurrentIndex(0)
 
         def addNewCat():
             connection = sqlite3.connect('LibraryDB.db')
