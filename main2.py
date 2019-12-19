@@ -459,9 +459,9 @@ class Ui_MainWindow(object):
             self.txtAddNewPublisher.setText('')
             updateSettingsDB()
 
-        def updateDB():
+        def updateOperationsDB():
             ### first we need to clear out the entries and then add the new ones
-            self.tableCategory.clearContents()
+            clearTables()
             ### Update the databse view for Categories ###
             connection = sqlite3.connect('LibraryDB.db')
             # connection.row_factory = sqlite3.Row
@@ -482,6 +482,7 @@ class Ui_MainWindow(object):
 
         def updateSettingsDB():
             clearTables()
+            clearTables()
             # first initilise a list so that we can loop over
             #  with mostly the same code-base
             tables = ['AuthorsDB', 'CategoriesDB', 'PublishersDB']
@@ -498,6 +499,8 @@ class Ui_MainWindow(object):
                         for row, form in enumerate(data):
                             for col, item in enumerate(form):
                                 self.tableAuthor.setItem(row, col, QTableWidgetItem(str(item)))
+                                self.cmbBoxAddBookAuthor.addItem(str(item))
+                                self.cmbBoxEditAuthor.addItem(str(item))
                                 col += 1
 
                             rowCount = self.tableAuthor.rowCount()
@@ -523,6 +526,18 @@ class Ui_MainWindow(object):
                             rowCount = self.tablePublisher.rowCount()
                             self.tablePublisher.insertRow(rowCount)
         
+        ### a function that will fill the combo boxes for the UI ###
+        def fillComboBoxes():
+            connection = sqlite3.connect('LibraryDB.db')
+            cur = connection.cursor()
+
+        def clearComboBoxes():
+            self.cmbBoxEditAuthor.clear()
+            self.cmbBoxAddBookAuthor.clear()
+            self.cmbBoxAddBookCat.clear()
+            self.cmbBoxEditCat.clear()
+            self.cmbBoxAddBookPublisher.clear()
+            self.cmbBoxEditPublisher.clear()
 
         def clearTables():
             self.tableAuthor.clearContents()
