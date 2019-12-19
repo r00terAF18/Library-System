@@ -428,9 +428,9 @@ class Ui_MainWindow(object):
             bookCat = self.cmbBoxAddBookCat.currentText()
             bookAuthor = self.cmbBoxAddBookAuthor.currentText()
             bookPublisher = self.cmbBoxAddBookPublisher.currentText()
-            bookPrice = int(self.txtAddBookPrice.text())
+            bookPrice = float(self.txtAddBookPrice.text())
 
-            query = f'INSERT INTO BooksDB(Name, Description, Code, Category, Author, Publisher, Price) VALUES({bookTitle}, {bookDesc}, {bookCode}, {bookCat}, {bookAuthor}, {bookPublisher}, {bookPrice})'
+            query = f'INSERT INTO BooksDB(Name, Descreption, Code, Category, Author, Publisher, Price) VALUES({bookTitle}, {bookDesc}, {bookCode}, {bookCat}, {bookAuthor}, {bookPublisher}, {bookPrice})'
             cur.execute(query)
             connection.commit()
             connection.close() 
@@ -571,6 +571,7 @@ class Ui_MainWindow(object):
         self.btnAddAuthor.clicked.connect(addNewAutohr)
         self.btnAddPublisher.clicked.connect(addNewPublisher)
         self.btnAddOperation.clicked.connect(addNewOperation)
+        self.btnAddBook.clicked.connect(addNewBook)
 
     def retranslateUi(self, MainWindow):
         _translate = QCoreApplication.translate
