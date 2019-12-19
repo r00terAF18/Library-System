@@ -511,6 +511,8 @@ class Ui_MainWindow(object):
                         for row, form in enumerate(data):
                             for col, item in enumerate(form):
                                 self.tableCategory.setItem(row, col, QTableWidgetItem(str(item)))
+                                self.cmbBoxAddBookCat.addItem(str(item))
+                                self.cmbBoxEditCat.addItem(str(item))
                                 col += 1
 
                             rowCount = self.tableCategory.rowCount()
@@ -521,6 +523,8 @@ class Ui_MainWindow(object):
                         for row, form in enumerate(data):
                             for col, item in enumerate(form):
                                 self.tablePublisher.setItem(row, col, QTableWidgetItem(str(item)))
+                                self.cmbBoxAddBookPublisher.addItem(str(item))
+                                self.cmbBoxEditPublisher.addItem(str(item))
                                 col += 1
 
                             rowCount = self.tablePublisher.rowCount()
@@ -604,12 +608,12 @@ class Ui_MainWindow(object):
         self.txtAddBookDesc.setPlaceholderText(_translate("MainWindow", "Enter Book Description"))
         self.txtAddBookCode.setPlaceholderText(_translate("MainWindow", "Enter Book Code"))
         self.txtAddBookPrice.setPlaceholderText(_translate("MainWindow", "Enter Book Price"))
-        self.cmbBoxAddBookCat.setCurrentText(_translate("MainWindow", "Category"))
-        self.cmbBoxAddBookCat.setItemText(0, _translate("MainWindow", "Category"))
-        self.cmbBoxAddBookAuthor.setCurrentText(_translate("MainWindow", "Category"))
-        self.cmbBoxAddBookAuthor.setItemText(0, _translate("MainWindow", "Category"))
-        self.cmbBoxAddBookPublisher.setCurrentText(_translate("MainWindow", "Category"))
-        self.cmbBoxAddBookPublisher.setItemText(0, _translate("MainWindow", "Category"))
+        # self.cmbBoxAddBookCat.setCurrentText(_translate("MainWindow", "Category"))
+        # self.cmbBoxAddBookCat.setItemText(0, _translate("MainWindow", "Category"))
+        # self.cmbBoxAddBookAuthor.setCurrentText(_translate("MainWindow", "Category"))
+        # self.cmbBoxAddBookAuthor.setItemText(0, _translate("MainWindow", "Category"))
+        # self.cmbBoxAddBookPublisher.setCurrentText(_translate("MainWindow", "Category"))
+        # self.cmbBoxAddBookPublisher.setItemText(0, _translate("MainWindow", "Category"))
         self.btnAddBook.setText(_translate("MainWindow", "Save"))
         self.tabBooks.setTabText(self.tabBooks.indexOf(self.tab_5), _translate("MainWindow", "Add New Book"))
         self.txtEditBookCode.setPlaceholderText(_translate("MainWindow", "Enter Book Code"))
