@@ -424,10 +424,16 @@ class Ui_MainWindow(object):
 
             bookTitle = self.txtAddBookTitle.text()
             bookCode = self.txtAddBookCode.text()
+            bookDesc = self.txtAddBookDesc.toPlainText()
             bookCat = self.cmbBoxAddBookCat.currentText()
             bookAuthor = self.cmbBoxAddBookAuthor.currentText()
             bookPublisher = self.cmbBoxAddBookPublisher.currentText()
-            bookPrice = self.txtAddBookPrice.text()
+            bookPrice = int(self.txtAddBookPrice.text())
+
+            query = f'INSERT INTO BooksDB(Name, Description, Code, Category, Author, Publisher, Price) VALUES({bookTitle}, {bookDesc}, {bookCode}, {bookCat}, {bookAuthor}, {bookPublisher}, {bookPrice})'
+            cur.execute(query)
+            connection.commit()
+            connection.close() 
 
         def addNewCat():
             connection = sqlite3.connect('LibraryDB.db')
@@ -479,9 +485,8 @@ class Ui_MainWindow(object):
                     rowCount = self.tableCategory.rowCount()
                     self.tableCategory.insertRow(rowCount)
 
-
         def updateSettingsDB():
-            clearTables()
+            clearComboBoxes()
             clearTables()
             # first initilise a list so that we can loop over
             #  with mostly the same code-base
@@ -529,12 +534,7 @@ class Ui_MainWindow(object):
 
                             rowCount = self.tablePublisher.rowCount()
                             self.tablePublisher.insertRow(rowCount)
-        
-        ### a function that will fill the combo boxes for the UI ###
-        def fillComboBoxes():
-            connection = sqlite3.connect('LibraryDB.db')
-            cur = connection.cursor()
-
+    
         def clearComboBoxes():
             self.cmbBoxEditAuthor.clear()
             self.cmbBoxAddBookAuthor.clear()
