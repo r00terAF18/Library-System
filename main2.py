@@ -395,6 +395,25 @@ class Ui_MainWindow(object):
         def setDarkTheme():
             self.ThemeWindow.setVisible(False)
 
+        ### USERS ###
+
+        def addUser():
+            connection = sqlite3.connect('LibraryDB.db')
+            cur = connection.cursor()
+
+            usrName = self.txtNewUser.text()
+            email = self.txtNewEmail.text()
+            passwd = self.txtNewPasswd.text()
+            passwd2 = self.txtNewPasswdAgain.text()
+
+            if passwd == passwd2:
+                cur.execute('INSERT INTO UsersDB(Name, Email, Password) VALUES(?, ?, ?)', (usrName, email, passwd, ))
+                connection.commit()
+            else:
+                QMessageBox.warning(self.tab_7, 'Password not mathcing', 'Please make sure that you have typed your password right', QMessageBox.Ok)
+            
+            connection.close()
+
         ### BOOKS ###
 
         def searchBook():
@@ -623,6 +642,7 @@ class Ui_MainWindow(object):
         self.btnSearchBooks.clicked.connect(searchBook)
         self.btnBookSave.clicked.connect(editBook)
         self.btnDeleteBook.clicked.connect(deleteBook)
+        self.btnLogin.clicked.connect(addUser)
 
 
     def retranslateUi(self, MainWindow):
