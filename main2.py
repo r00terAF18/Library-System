@@ -357,13 +357,6 @@ class Ui_MainWindow(object):
         self.label_3.setFont(font)
         self.label_3.setObjectName("label_3")
         MainWindow.setCentralWidget(self.centralwidget)
-        # self.statusbar = QStatusBar(MainWindow)
-        # self.statusbar.setObjectName("statusbar")
-        # MainWindow.setStatusBar(self.statusbar)
-        # self.menubar = QMenuBar(MainWindow)
-        # self.menubar.setGeometry(QRect(0, 0, 968, 21))
-        # self.menubar.setObjectName("menubar")
-        # MainWindow.setMenuBar(self.menubar)
 
         self.retranslateUi(MainWindow)
         self.mainTab.setCurrentIndex(0)
@@ -437,6 +430,19 @@ class Ui_MainWindow(object):
             cur.execute(f'UPDATE BooksDB SET Name=\'{bookTitle}\', Descreption=\'{bookDesc}\', Code=\'{bookCode}\', Category=\'{bookCat}\', Author=\'{bookAuthor}\', Publisher=\'{bookPublisher}\', Price=\'{bookPrice}\' WHERE Name=\'{searchBookTitle}\'')
             connection.commit()
             connection.close()
+
+        def deleteBook():
+            connection = sqlite3.connect('LibraryDB.db')
+            cur = connection.cursor()
+
+            bookTitle = self.txtSearchBookTitle.text()
+            warning = QMessageBox.warning(self, 'Delete Book', f'Are you sure that you want to delete the following book \'{bookTitle}\'', QMessageBox.Yes | QMessageBox.No)
+            if warning == QMessageBox.Yes:
+                cur.execute(f'DELETE FROM BooksDB WHERE Name = \'{bookTitle}\'')
+                connection.commit()
+                connection.close()
+            else:
+                connection.close()
 
         def addNewOperation():
             connection = sqlite3.connect('LibraryDB.db')
@@ -614,6 +620,7 @@ class Ui_MainWindow(object):
         self.btnAddBook.clicked.connect(addNewBook)
         self.btnSearchBooks.clicked.connect(searchBook)
         self.btnBookSave.clicked.connect(editBook)
+        self.btnDeleteBook.clicked.connect(deleteBook)
 
     def retranslateUi(self, MainWindow):
         _translate = QCoreApplication.translate
