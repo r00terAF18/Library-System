@@ -436,7 +436,8 @@ class Ui_MainWindow(object):
             cur = connection.cursor()
 
             bookTitle = self.txtSearchBookTitle.text()
-            warning = QMessageBox.warning(self, 'Delete Book', f'Are you sure that you want to delete the following book \'{bookTitle}\'', QMessageBox.Yes | QMessageBox.No)
+            message = f"Are you sure that you want to delete the following book >>> {bookTitle}"
+            warning = QMessageBox.warning(self, 'Delete Book', 'Are you sure you want to delete this Book?', QMessageBox.Yes | QMessageBox.No)
             if warning == QMessageBox.Yes:
                 cur.execute(f'DELETE FROM BooksDB WHERE Name = \'{bookTitle}\'')
                 connection.commit()
