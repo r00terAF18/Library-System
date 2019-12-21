@@ -357,13 +357,6 @@ class Ui_MainWindow(object):
         self.label_3.setFont(font)
         self.label_3.setObjectName("label_3")
         MainWindow.setCentralWidget(self.centralwidget)
-        # self.statusbar = QStatusBar(MainWindow)
-        # self.statusbar.setObjectName("statusbar")
-        # MainWindow.setStatusBar(self.statusbar)
-        # self.menubar = QMenuBar(MainWindow)
-        # self.menubar.setGeometry(QRect(0, 0, 968, 21))
-        # self.menubar.setObjectName("menubar")
-        # MainWindow.setMenuBar(self.menubar)
 
         self.retranslateUi(MainWindow)
         self.mainTab.setCurrentIndex(0)
@@ -403,6 +396,55 @@ class Ui_MainWindow(object):
 
         ### BOOKS ###
 
+        def searchBook():
+            connection = sqlite3.connect('LibraryDB.db')
+            cur = connection.cursor()
+
+            bookTitle = self.txtSearchBookTitle.text()
+
+            cur.execute(f'SELECT * FROM BooksDB WHERE Name = \'{bookTitle}\'')
+            data = cur.fetchone()
+
+            if data:
+                self.txtEditBookTitle.setText(data[1])
+                self.txtEditBookDesc.setText(data[2])
+                self.txtEditBookCode.setText(data[3])
+                self.cmbBoxEditCat.setCurrentIndex(int(data[4]))
+                self.cmbBoxEditAuthor.setCurrentIndex(int(data[5]))
+                self.cmbBoxEditPublisher.setCurrentIndex(int(data[6]))
+                self.txtEditBookPrice.setText(str(data[7]))
+
+        def editBook():
+            connection = sqlite3.connect('LibraryDB.db')
+            cur = connection.cursor()
+
+            searchBookTitle = self.txtSearchBookTitle.text()
+            bookTitle = self.txtEditBookTitle.text()
+            bookCode = self.txtEditBookCode.text()
+            bookDesc = self.txtEditBookDesc.toPlainText()
+            bookCat = self.cmbBoxEditCat.currentIndex()
+            bookAuthor = self.cmbBoxEditAuthor.currentIndex()
+            bookPublisher = self.cmbBoxEditPublisher.currentIndex()
+            bookPrice = float(self.txtEditBookPrice.text())
+
+            cur.execute(f'UPDATE BooksDB SET Name=\'{bookTitle}\', Descreption=\'{bookDesc}\', Code=\'{bookCode}\', Category=\'{bookCat}\', Author=\'{bookAuthor}\', Publisher=\'{bookPublisher}\', Price=\'{bookPrice}\' WHERE Name=\'{searchBookTitle}\'')
+            connection.commit()
+            connection.close()
+
+        def deleteBook():
+            connection = sqlite3.connect('LibraryDB.db')
+            cur = connection.cursor()
+
+            bookTitle = self.txtSearchBookTitle.text()
+            message = f"Are you sure that you want to delete the following book >>> {bookTitle}"
+            warning = QMessageBox.warning(self.tab_6, 'Delete Book', 'Are you sure you want to delete this Book?', QMessageBox.Yes | QMessageBox.No)
+            if warning == QMessageBox.Yes:
+                cur.execute(f'DELETE FROM BooksDB WHERE Name = \'{bookTitle}\'')
+                connection.commit()
+                connection.close()
+            else:
+                connection.close()
+
         def addNewOperation():
             connection = sqlite3.connect('LibraryDB.db')
             cur = connection.cursor()
@@ -415,8 +457,6 @@ class Ui_MainWindow(object):
             connection.commit()
             connection.close()
             self.txtOperationBookTitle.setText('')
-
-
 
         def addNewBook():
             connection = sqlite3.connect('LibraryDB.db')
@@ -579,6 +619,9 @@ class Ui_MainWindow(object):
         self.btnAddPublisher.clicked.connect(addNewPublisher)
         self.btnAddOperation.clicked.connect(addNewOperation)
         self.btnAddBook.clicked.connect(addNewBook)
+        self.btnSearchBooks.clicked.connect(searchBook)
+        self.btnBookSave.clicked.connect(editBook)
+        self.btnDeleteBook.clicked.connect(deleteBook)
 
     def retranslateUi(self, MainWindow):
         _translate = QCoreApplication.translate
