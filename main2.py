@@ -374,18 +374,12 @@ class Ui_MainWindow(object):
 
         def showDayToDay():
             self.mainTab.setCurrentIndex(0)
-            updateSettingsDB()
-            updateOperationsDB()
 
         def showBooksTab():
             self.mainTab.setCurrentIndex(1)
-            updateSettingsDB()
-            updateOperationsDB()
 
         def showUsersTab():
             self.mainTab.setCurrentIndex(2)
-            updateSettingsDB()
-            updateOperationsDB()
 
         def showSettingsTab():
             self.mainTab.setCurrentIndex(3)
@@ -629,6 +623,7 @@ class Ui_MainWindow(object):
         self.btnSearchBooks.clicked.connect(searchBook)
         self.btnBookSave.clicked.connect(editBook)
         self.btnDeleteBook.clicked.connect(deleteBook)
+
 
     def retranslateUi(self, MainWindow):
         _translate = QCoreApplication.translate
