@@ -438,14 +438,6 @@ class Ui_MainWindow(object):
             connection.commit()
             connection.close()
 
-            # self.txtAddBookTitle.setText('')
-            # self.txtAddBookCode.setText('')
-            # self.txtAddBookDesc.setText('')
-            # self.txtAddBookPrice.setText('')
-            # self.cmbBoxAddBookCat.setCurrentIndex(0)
-            # self.cmbBoxAddBookAuthor.setCurrentIndex(0)
-            # self.cmbBoxAddBookPublisher.setCurrentIndex(0)
-
         def addNewOperation():
             connection = sqlite3.connect('LibraryDB.db')
             cur = connection.cursor()
