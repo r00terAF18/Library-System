@@ -421,6 +421,31 @@ class Ui_MainWindow(object):
                 self.cmbBoxEditPublisher.setCurrentIndex(int(data[6]))
                 self.txtEditBookPrice.setText(str(data[7]))
 
+        def editBook():
+            connection = sqlite3.connect('LibraryDB.db')
+            cur = connection.cursor()
+
+            searchBookTitle = self.txtSearchBookTitle.text()
+            bookTitle = self.txtEditBookTitle.text()
+            bookCode = self.txtEditBookCode.text()
+            bookDesc = self.txtEditBookDesc.toPlainText()
+            bookCat = self.cmbBoxEditCat.currentIndex()
+            bookAuthor = self.cmbBoxEditAuthor.currentIndex()
+            bookPublisher = self.cmbBoxEditPublisher.currentIndex()
+            bookPrice = float(self.txtEditBookPrice.text())
+
+            cur.execute(f'UPDATE BooksDB SET Name=\'{bookTitle}\', Descreption=\'{bookDesc}\', Code=\'{bookCode}\', Category=\'{bookCat}\', Author=\'{bookAuthor}\', Publisher=\'{bookPublisher}\', Price=\'{bookPrice}\' WHERE Name=\'{searchBookTitle}\'')
+            connection.commit()
+            connection.close()
+
+            # self.txtAddBookTitle.setText('')
+            # self.txtAddBookCode.setText('')
+            # self.txtAddBookDesc.setText('')
+            # self.txtAddBookPrice.setText('')
+            # self.cmbBoxAddBookCat.setCurrentIndex(0)
+            # self.cmbBoxAddBookAuthor.setCurrentIndex(0)
+            # self.cmbBoxAddBookPublisher.setCurrentIndex(0)
+
         def addNewOperation():
             connection = sqlite3.connect('LibraryDB.db')
             cur = connection.cursor()
@@ -596,6 +621,7 @@ class Ui_MainWindow(object):
         self.btnAddOperation.clicked.connect(addNewOperation)
         self.btnAddBook.clicked.connect(addNewBook)
         self.btnSearchBooks.clicked.connect(searchBook)
+        self.btnBookSave.clicked.connect(editBook)
 
     def retranslateUi(self, MainWindow):
         _translate = QCoreApplication.translate
