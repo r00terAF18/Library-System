@@ -403,6 +403,24 @@ class Ui_MainWindow(object):
 
         ### BOOKS ###
 
+        def searchBook():
+            connection = sqlite3.connect('LibraryDB.db')
+            cur = connection.cursor()
+
+            bookTitle = self.txtSearchBookTitle.text()
+
+            cur.execute(f'SELECT * FROM BooksDB WHERE Name = \'{bookTitle}\'')
+            data = cur.fetchone()
+
+            if data:
+                self.txtEditBookTitle.setText(data[1])
+                self.txtEditBookDesc.setText(data[2])
+                self.txtEditBookCode.setText(data[3])
+                self.cmbBoxEditCat.setCurrentIndex(int(data[4]))
+                self.cmbBoxEditAuthor.setCurrentIndex(int(data[5]))
+                self.cmbBoxEditPublisher.setCurrentIndex(int(data[6]))
+                self.txtEditBookPrice.setText(str(data[7]))
+
         def addNewOperation():
             connection = sqlite3.connect('LibraryDB.db')
             cur = connection.cursor()
@@ -415,8 +433,6 @@ class Ui_MainWindow(object):
             connection.commit()
             connection.close()
             self.txtOperationBookTitle.setText('')
-
-
 
         def addNewBook():
             connection = sqlite3.connect('LibraryDB.db')
@@ -579,6 +595,7 @@ class Ui_MainWindow(object):
         self.btnAddPublisher.clicked.connect(addNewPublisher)
         self.btnAddOperation.clicked.connect(addNewOperation)
         self.btnAddBook.clicked.connect(addNewBook)
+        self.btnSearchBooks.clicked.connect(searchBook)
 
     def retranslateUi(self, MainWindow):
         _translate = QCoreApplication.translate
