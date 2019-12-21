@@ -374,16 +374,23 @@ class Ui_MainWindow(object):
 
         def showDayToDay():
             self.mainTab.setCurrentIndex(0)
+            updateSettingsDB()
+            updateOperationsDB()
 
         def showBooksTab():
             self.mainTab.setCurrentIndex(1)
+            updateSettingsDB()
+            updateOperationsDB()
 
         def showUsersTab():
             self.mainTab.setCurrentIndex(2)
+            updateSettingsDB()
+            updateOperationsDB()
 
         def showSettingsTab():
             self.mainTab.setCurrentIndex(3)
             updateSettingsDB()
+            updateOperationsDB()
 
         def showThemeWindow():
             self.ThemeWindow.setVisible(True)
