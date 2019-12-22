@@ -23,6 +23,7 @@ class MainApp(QMainWindow, ui):
     def UI_Handler(self):
         self.setDarkOrangeTheme()
         self.hideThemeWindow()
+        self.updateSettingsDB()
 
     ### Button Handler ####
     def ButtonHandler(self):
@@ -69,6 +70,304 @@ class MainApp(QMainWindow, ui):
         style = style.read()
         MainApp.setStyleSheet(self, style)
         self.ThemeWindow.setVisible(False)
+
+    ### UI Funtions ###
+
+    def showDayToDay(self):
+        self.mainTab.setCurrentIndex(0)
+
+    def showBooksTab(self):
+        self.mainTab.setCurrentIndex(1)
+
+    def showUsersTab(self):
+        self.mainTab.setCurrentIndex(2)
+
+    def showSettingsTab(self):
+        self.mainTab.setCurrentIndex(3)
+
+    ### USERS ###
+
+    def addUser(self):
+        connection = sqlite3.connect('LibraryDB.db')
+        cur = connection.cursor()
+
+        usrName = self.txtNewUser.text()
+        email = self.txtNewEmail.text()
+        passwd = self.txtNewPasswd.text()
+        passwd2 = self.txtNewPasswdAgain.text()
+
+        if passwd == passwd2:
+            cur.execute('INSERT INTO UsersDB(Name, Email, Password) VALUES(?, ?, ?)', (usrName, email, passwd, ))
+            connection.commit()
+            QMessageBox.information(self.tab_7, 'Success', 'You may now login with the entered credetnials', QMessageBox.Ok)
+        elif passwd != passwd2:
+            QMessageBox.warning(self.tab_7, 'Password not mathcing', 'Please make sure that you have typed your password right', QMessageBox.Ok)
+        elif usrName == '' or usrName == ' ':
+            QMessageBox.warning(self.tab_7, 'Empty field', 'Please make sure that you have filled all teh fields', QMessageBox.Ok)
+        elif email == '' or email == ' ':
+            QMessageBox.warning(self.tab_7, 'Empty field', 'Please make sure that you have filled all teh fields', QMessageBox.Ok)
+        
+        connection.close()
+
+        self.txtNewUser.setText('')
+        self.txtNewEmail.setText('')
+        self.txtNewPasswd.setText('')
+        self.txtNewPasswdAgain.setText('')
+
+    def login(self):
+        connection = sqlite3.connect('LibraryDB.db')
+        cur = connection.cursor()
+
+        usrName = self.txtUserLogin.text()
+        ### I dont want to store the passswdord in a variable
+
+        cur.execute(f'SELECT Name, Email, Password FROM UsersDB WHERE Name = \'{usrName}\' AND Password = \'{self.txtPasswdLogin.text()}\'')
+        data = cur.fetchone()
+        if data:
+            QMessageBox.information(self.tab_7, 'Successfully loged in', 'You have successfully loged in, you may now browse the app freely', QMessageBox.Ok)
+            self.txtUpdateUser.setEnabled(True)
+            self.txtUpdateEmail.setEnabled(True)
+            self.txtUpdatePasswd.setEnabled(True)
+            self.txtUpdateConfirmPasswd.setEnabled(True)
+            self.btnUpdateUser.setEnabled(True)
+            self.txtUpdateUser.setText(data[0])
+            self.txtUpdateEmail.setText(data[1])
+            connection.close()
+        else:
+            QMessageBox.warning(self.tab_7, 'Error', 'No mathcing Username or Password were found, please make sure you have entered everything correctly', QMessageBox.Ok)
+        
+        connection.close()
+
+
+    def editUser(self):
+        connection = sqlite3.connect('LibraryDB.db')
+        cur = connection.cursor()
+
+        originalUsrName = self.txtUserLogin.text()
+        originalPasswd = self.txtPasswdLogin.text()
+        usrName = self.txtUpdateUser.text()
+        email = self.txtUpdateEmail.text()
+        passwd = self.txtUpdatePasswd.text()
+        passwd2 = self.txtUpdateConfirmPasswd.text()
+
+        if passwd == passwd2:
+            cur.execute(f'UPDATE UsersDB SET Name = \'{usrName}\', Email = \'{email}\', Password = \'{passwd2}\' WHERE Name = \'{originalUsrName}\' AND Password = \'{originalPasswd}\'')
+            connection.commit()
+            QMessageBox.information(self.tab_7, 'Info updated', 'Your data hase been successfully updated, please login again', QMessageBox.Ok)
+        else:
+            QMessageBox.warning(self.tab_7, 'Error', 'No mathcing Username or Password were found, please make sure you have entered everything correctly', QMessageBox.Ok)
+
+        connection.close()
+
+    ### BOOKS ###
+
+    def searchBook(self):
+        connection = sqlite3.connect('LibraryDB.db')
+        cur = connection.cursor()
+
+        bookTitle = self.txtSearchBookTitle.text()
+
+        cur.execute(f'SELECT * FROM BooksDB WHERE Name = \'{bookTitle}\'')
+        data = cur.fetchone()
+
+        if data:
+            self.txtEditBookTitle.setText(data[1])
+            self.txtEditBookDesc.setText(data[2])
+            self.txtEditBookCode.setText(data[3])
+            self.cmbBoxEditCat.setCurrentIndex(int(data[4]))
+            self.cmbBoxEditAuthor.setCurrentIndex(int(data[5]))
+            self.cmbBoxEditPublisher.setCurrentIndex(int(data[6]))
+            self.txtEditBookPrice.setText(str(data[7]))
+
+    def editBook(self):
+        connection = sqlite3.connect('LibraryDB.db')
+        cur = connection.cursor()
+
+        searchBookTitle = self.txtSearchBookTitle.text()
+        bookTitle = self.txtEditBookTitle.text()
+        bookCode = self.txtEditBookCode.text()
+        bookDesc = self.txtEditBookDesc.toPlainText()
+        bookCat = self.cmbBoxEditCat.currentIndex()
+        bookAuthor = self.cmbBoxEditAuthor.currentIndex()
+        bookPublisher = self.cmbBoxEditPublisher.currentIndex()
+        bookPrice = float(self.txtEditBookPrice.text())
+
+        cur.execute(f'UPDATE BooksDB SET Name=\'{bookTitle}\', Descreption=\'{bookDesc}\', Code=\'{bookCode}\', Category=\'{bookCat}\', Author=\'{bookAuthor}\', Publisher=\'{bookPublisher}\', Price=\'{bookPrice}\' WHERE Name=\'{searchBookTitle}\'')
+        connection.commit()
+        connection.close()
+
+    def deleteBook(self):
+        connection = sqlite3.connect('LibraryDB.db')
+        cur = connection.cursor()
+
+        bookTitle = self.txtSearchBookTitle.text()
+        message = f"Are you sure that you want to delete the following book >>> {bookTitle}"
+        warning = QMessageBox.warning(self.tab_6, 'Delete Book', 'Are you sure you want to delete this Book?', QMessageBox.Yes | QMessageBox.No)
+        if warning == QMessageBox.Yes:
+            cur.execute(f'DELETE FROM BooksDB WHERE Name = \'{bookTitle}\'')
+            connection.commit()
+            connection.close()
+        else:
+            connection.close()
+
+    def addNewOperation(self):
+        connection = sqlite3.connect('LibraryDB.db')
+        cur = connection.cursor()
+
+        bookTitle = self.txtOperationBookTitle.text()
+        operation = self.comboBoxOperation.currentText().text()
+        duration = int(self.comboBoxDuration.currentText())
+
+        cur.execute('INSERT INTO OperationsDB(Name, Type, Duration) VALUES(?, ?, ?)', (bookTitle, operation, duration))
+        connection.commit()
+        connection.close()
+        self.txtOperationBookTitle.setText('')
+
+    def addNewBook(self):
+        connection = sqlite3.connect('LibraryDB.db')
+        cur = connection.cursor()
+
+        bookTitle = self.txtAddBookTitle.text()
+        bookCode = self.txtAddBookCode.text()
+        bookDesc = self.txtAddBookDesc.toPlainText()
+        bookCat = self.cmbBoxAddBookCat.currentIndex()
+        bookAuthor = self.cmbBoxAddBookAuthor.currentIndex()
+        bookPublisher = self.cmbBoxAddBookPublisher.currentIndex()
+        bookPrice = float(self.txtAddBookPrice.text())
+
+        cur.execute(f'INSERT INTO BooksDB(Name, Descreption, Code, Category, Author, Publisher, Price) VALUES(?, ?, ?, ?, ?, ?, ?)', (bookTitle, bookDesc, bookCode, bookCat, bookAuthor, bookPublisher, bookPrice, ))
+        connection.commit()
+        connection.close()
+
+        self.txtAddBookTitle.setText('')
+        self.txtAddBookCode.setText('')
+        self.txtAddBookDesc.setText('')
+        self.txtAddBookPrice.setText('')
+        self.cmbBoxAddBookCat.setCurrentIndex(0)
+        self.cmbBoxAddBookAuthor.setCurrentIndex(0)
+        self.cmbBoxAddBookPublisher.setCurrentIndex(0)
+
+    def addNewCat(self):
+        connection = sqlite3.connect('LibraryDB.db')
+        cur = connection.cursor()
+        category = self.txtAddNewCategory.text()
+        cur.execute('INSERT INTO CategoriesDB(Name) VALUES(?)', (category, ))
+        connection.commit()
+        connection.close()
+        self.txtAddNewCategory.setText('')
+        self.updateSettingsDB()
+
+    def addNewAutohr(self):
+        connection = sqlite3.connect('LibraryDB.db')
+        cur = connection.cursor()
+        author = self.txtAddNewAuthor.text()
+        cur.execute('INSERT INTO AuthorsDB(Name) VALUES(?)', (author, ))
+        connection.commit()
+        connection.close()
+        self.txtAddNewAuthor.setText('')
+        self.updateSettingsDB()
+
+    def addNewPublisher(self):
+        connection = sqlite3.connect('LibraryDB.db')
+        cur = connection.cursor()
+        publisher = self.txtAddNewPublisher.text()
+        cur.execute('INSERT INTO PublishersDB(Name) VALUES(?)', (publisher,))
+        connection.commit()
+        connection.close()
+        self.txtAddNewPublisher.setText('')
+        self.updateSettingsDB()
+
+    def updateOperationsDB(self):
+        ### first we need to clear out the entries and then add the new ones
+        self.clearTables()
+        ### Update the databse view for Categories ###
+        connection = sqlite3.connect('LibraryDB.db')
+        # connection.row_factory = sqlite3.Row
+        cur = connection.cursor()
+        cur.execute('SELECT Name FROM CategoriesDB')
+        data = cur.fetchall()
+
+        if data:
+            self.tableCategory.insertRow(0)
+            for row, form in enumerate(data):
+                for col, item in enumerate(form):
+                    self.tableCategory.setItem(row, col, QTableWidgetItem(str(item)))
+                    col += 1
+
+                rowCount = self.tableCategory.rowCount()
+                self.tableCategory.insertRow(rowCount)
+
+    def updateSettingsDB(self):
+        self.clearComboBoxes()
+        self.clearTables()
+        # first initilise a list so that we can loop over
+        #  with mostly the same code-base
+        tables = ['AuthorsDB', 'CategoriesDB', 'PublishersDB']
+        connection = sqlite3.connect('LibraryDB.db')
+        cur = connection.cursor()
+        for table in tables:
+            query = f'SELECT Name FROM {table}'
+            # print(query)
+            cur.execute(query)
+            data = cur.fetchall()
+            if data:
+                if table == 'AuthorsDB':
+                    self.tableAuthor.insertRow(0)
+                    for row, form in enumerate(data):
+                        for col, item in enumerate(form):
+                            self.tableAuthor.setItem(row, col, QTableWidgetItem(str(item)))
+                            self.cmbBoxAddBookAuthor.addItem(str(item))
+                            self.cmbBoxEditAuthor.addItem(str(item))
+                            col += 1
+
+                        rowCount = self.tableAuthor.rowCount()
+                        self.tableAuthor.insertRow(rowCount)
+                
+                elif table == 'CategoriesDB':
+                    self.tableCategory.insertRow(0)
+                    for row, form in enumerate(data):
+                        for col, item in enumerate(form):
+                            self.tableCategory.setItem(row, col, QTableWidgetItem(str(item)))
+                            self.cmbBoxAddBookCat.addItem(str(item))
+                            self.cmbBoxEditCat.addItem(str(item))
+                            col += 1
+
+                        rowCount = self.tableCategory.rowCount()
+                        self.tableCategory.insertRow(rowCount)
+
+                elif table == 'PublishersDB':
+                    self.tablePublisher.insertRow(0)
+                    for row, form in enumerate(data):
+                        for col, item in enumerate(form):
+                            self.tablePublisher.setItem(row, col, QTableWidgetItem(str(item)))
+                            self.cmbBoxAddBookPublisher.addItem(str(item))
+                            self.cmbBoxEditPublisher.addItem(str(item))
+                            col += 1
+
+                        rowCount = self.tablePublisher.rowCount()
+                        self.tablePublisher.insertRow(rowCount)
+
+    def clearComboBoxes(self):
+        self.cmbBoxEditAuthor.clear()
+        self.cmbBoxAddBookAuthor.clear()
+        self.cmbBoxAddBookCat.clear()
+        self.cmbBoxEditCat.clear()
+        self.cmbBoxAddBookPublisher.clear()
+        self.cmbBoxEditPublisher.clear()
+
+    def clearTables(self):
+        self.tableAuthor.clearContents()
+        self.tableAuthor.setColumnCount(1)
+        self.tableAuthor.setRowCount(0)
+        self.tableCategory.clearContents()
+        self.tableCategory.setColumnCount(1)
+        self.tableCategory.setRowCount(0)
+        self.tablePublisher.clearContents()
+        self.tablePublisher.setColumnCount(1)
+        self.tablePublisher.setRowCount(0)
+        self.tableMain.clearContents()
+        self.tableMain.setColumnCount(1)
+        self.tableMain.setRowCount(0)
 
 
 
