@@ -424,6 +424,20 @@ class Ui_MainWindow(object):
             self.txtNewPasswd.setText('')
             self.txtNewPasswdAgain.setText('')
 
+        def login():
+            connection = sqlite3.connect('LibraryDB.db')
+            cur = connection.cursor()
+
+            usrName = self.txtUserLogin.text()
+            ### I dont want to store the passswdord in a variable
+
+            cur.execute(f'SELECT Name, Password FROM UsersDB WHERE Name = \'{usrName}\' AND Password = \'{self.txtPasswdLogin.text()}\'')
+            data = cur.fetchone()
+            if data:
+                QMessageBox.information(self.tab_7, 'Successfully loged in', 'You have successfully loged in, you may now browse the app freely', QMessageBox.Ok)
+            else:
+                QMessageBox.warning(self.tab_7, 'Error', 'No mathcing Username or Password were found, please make sure you have entered everything correctly', QMessageBox.Ok)
+
         ### BOOKS ###
 
         def searchBook():
@@ -652,7 +666,7 @@ class Ui_MainWindow(object):
         self.btnSearchBooks.clicked.connect(searchBook)
         self.btnBookSave.clicked.connect(editBook)
         self.btnDeleteBook.clicked.connect(deleteBook)
-        # self.btnLogin.clicked.connect(addUser)
+        self.btnLogin.clicked.connect(login)
         self.btnRegister.clicked.connect(addUser)
 
 
