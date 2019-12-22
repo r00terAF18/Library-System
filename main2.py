@@ -413,7 +413,7 @@ class Ui_MainWindow(object):
                 QMessageBox.warning(self.tab_7, 'Password not mathcing', 'Please make sure that you have typed your password right', QMessageBox.Ok)
             elif usrName == '' or usrName == ' ':
                 QMessageBox.warning(self.tab_7, 'Empty field', 'Please make sure that you have filled all teh fields', QMessageBox.Ok)
-            elif email == '' or usrName == ' ':
+            elif email == '' or email == ' ':
                 QMessageBox.warning(self.tab_7, 'Empty field', 'Please make sure that you have filled all teh fields', QMessageBox.Ok)
             
             connection.close()
@@ -646,7 +646,8 @@ class Ui_MainWindow(object):
         self.btnSearchBooks.clicked.connect(searchBook)
         self.btnBookSave.clicked.connect(editBook)
         self.btnDeleteBook.clicked.connect(deleteBook)
-        self.btnLogin.clicked.connect(addUser)
+        # self.btnLogin.clicked.connect(addUser)
+        self.btnRegister.clicked.connect(addUser)
 
 
     def retranslateUi(self, MainWindow):
