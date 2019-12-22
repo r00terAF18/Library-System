@@ -452,8 +452,9 @@ class Ui_MainWindow(object):
             email = self.txtUpdateEmail.text()
             passwd = self.txtUpdatePasswd.text()
             passwd2 = self.txtUpdateConfirmPasswd.text()
+            
             if passwd == passwd2:
-                cur.execute(f'UPDATE UsersDB SET Name = \'{usrname}\', Email = \'{email}\', Password = \'{passwd2}\' WHERE Name = \'{usrName}\' AND Password = \'{passwd}\'')
+                cur.execute(f'UPDATE UsersDB SET Name = \'{usrName}\', Email = \'{email}\', Password = \'{passwd2}\' WHERE Name = \'{usrName}\' AND Password = \'{passwd}\'')
                 connection.commit()
                 connection.close()
             else:
