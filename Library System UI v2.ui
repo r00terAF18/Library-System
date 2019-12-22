@@ -16,6 +16,12 @@
     <verstretch>0</verstretch>
    </sizepolicy>
   </property>
+  <property name="maximumSize">
+   <size>
+    <width>968</width>
+    <height>516</height>
+   </size>
+  </property>
   <property name="font">
    <font>
     <family>Times New Roman</family>
