@@ -409,8 +409,12 @@ class Ui_MainWindow(object):
             if passwd == passwd2:
                 cur.execute('INSERT INTO UsersDB(Name, Email, Password) VALUES(?, ?, ?)', (usrName, email, passwd, ))
                 connection.commit()
-            else:
+            elif passwd != passwd2:
                 QMessageBox.warning(self.tab_7, 'Password not mathcing', 'Please make sure that you have typed your password right', QMessageBox.Ok)
+            elif usrName == '' or usrName == ' ':
+                QMessageBox.warning(self.tab_7, 'Empty field', 'Please make sure that you have filled all teh fields', QMessageBox.Ok)
+            elif email == '' or usrName == ' ':
+                QMessageBox.warning(self.tab_7, 'Empty field', 'Please make sure that you have filled all teh fields', QMessageBox.Ok)
             
             connection.close()
 
