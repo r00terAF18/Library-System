@@ -32,6 +32,7 @@ class MainApp(QMainWindow, ui):
         self.btnLightTheme.clicked.connect(self.setLightTheme)
         self.btnDarkTheme.clicked.connect(self.setDarkTheme)
         self.btnDarkOrange.clicked.connect(self.setDarkOrangeTheme)
+        self.btnDarkGray.clicked.connect(self.setDarkGrayTheme)
         self.btnMainDayToDay.clicked.connect(self.showDayToDay)
         self.btnMainBooks.clicked.connect(self.showBooksTab)
         self.btnMainUsers.clicked.connect(self.showUsersTab)
