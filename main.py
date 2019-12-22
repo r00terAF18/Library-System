@@ -406,12 +406,15 @@ class Ui_MainWindow(object):
             self.ThemeWindow.setVisible(False)
 
         def setDarkTheme():
+            style = open('Themes\DarkGray.css', 'r')
+            style = style.read()
+            MainWindow.setStyleSheet(style)
             self.ThemeWindow.setVisible(False)
         
         def setDarkOrangeTheme():
             style = open('Themes\DarkOrange.css', 'r')
             style = style.read()
-            self.setStyleSheet(style)
+            MainWindow.setStyleSheet(style)
             self.ThemeWindow.setVisible(False)
 
         ### USERS ###
