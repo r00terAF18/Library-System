@@ -441,6 +441,7 @@ class Ui_MainWindow(object):
                 self.btnUpdateUser.setEnabled(True)
                 self.txtUpdateUser.setText(data[0])
                 self.txtUpdateEmail.setText(data[1])
+                connection.close()
             else:
                 QMessageBox.warning(self.tab_7, 'Error', 'No mathcing Username or Password were found, please make sure you have entered everything correctly', QMessageBox.Ok)
 
@@ -452,7 +453,7 @@ class Ui_MainWindow(object):
             email = self.txtUpdateEmail.text()
             passwd = self.txtUpdatePasswd.text()
             passwd2 = self.txtUpdateConfirmPasswd.text()
-            
+
             if passwd == passwd2:
                 cur.execute(f'UPDATE UsersDB SET Name = \'{usrName}\', Email = \'{email}\', Password = \'{passwd2}\' WHERE Name = \'{usrName}\' AND Password = \'{passwd}\'')
                 connection.commit()
