@@ -24,6 +24,7 @@ class MainApp(QMainWindow, ui):
         self.setDarkOrangeTheme()
         self.hideThemeWindow()
         self.updateSettingsDB()
+        self.mainTab.tabBar().setVisible(False)
 
     ### Button Handler ####
     def ButtonHandler(self):
@@ -60,6 +61,12 @@ class MainApp(QMainWindow, ui):
         self.ThemeWindow.setVisible(False)
 
     def setDarkTheme(self):
+        style = open('Themes\Dark.css', 'r')
+        style = style.read()
+        MainApp.setStyleSheet(self, style)
+        self.ThemeWindow.setVisible(False)
+
+    def setDarkGrayTheme(self):
         style = open('Themes\DarkGray.css', 'r')
         style = style.read()
         MainApp.setStyleSheet(self, style)
