@@ -21,6 +21,7 @@ class MainApp(QMainWindow, ui):
     
     ### UI_Handler ###
     def UI_Handler(self):
+        self.setDarkOrangeTheme()
         self.hideThemeWindow()
 
     ### Button Handler ####
@@ -29,6 +30,21 @@ class MainApp(QMainWindow, ui):
         self.btnLightTheme.clicked.connect(self.setLightTheme)
         self.btnDarkTheme.clicked.connect(self.setDarkTheme)
         self.btnDarkOrange.clicked.connect(self.setDarkOrangeTheme)
+        self.btnMainDayToDay.clicked.connect(self.showDayToDay)
+        self.btnMainBooks.clicked.connect(self.showBooksTab)
+        self.btnMainUsers.clicked.connect(self.showUsersTab)
+        self.btnMainSettings.clicked.connect(self.showSettingsTab)
+        self.btnAddCategory.clicked.connect(self.addNewCat)
+        self.btnAddAuthor.clicked.connect(self.addNewAutohr)
+        self.btnAddPublisher.clicked.connect(self.addNewPublisher)
+        self.btnAddOperation.clicked.connect(self.addNewOperation)
+        self.btnAddBook.clicked.connect(self.addNewBook)
+        self.btnSearchBooks.clicked.connect(self.searchBook)
+        self.btnBookSave.clicked.connect(self.editBook)
+        self.btnDeleteBook.clicked.connect(self.deleteBook)
+        self.btnLogin.clicked.connect(self.login)
+        self.btnRegister.clicked.connect(self.addUser)
+        self.btnUpdateUser.clicked.connect(self.editUser)
 
         ### Theme Window ###
     def showThemeWindow(self):
@@ -38,6 +54,8 @@ class MainApp(QMainWindow, ui):
         self.ThemeWindow.setVisible(False)
 
     def setLightTheme(self):
+        style = ''
+        MainApp.setStyleSheet(self, style)
         self.ThemeWindow.setVisible(False)
 
     def setDarkTheme(self):
