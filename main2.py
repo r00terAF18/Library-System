@@ -430,10 +430,13 @@ class Ui_MainWindow(object):
             usrName = self.txtUserLogin.text()
             ### I dont want to store the passswdord in a variable
 
-            cur.execute(f'SELECT Name, Password FROM UsersDB WHERE Name = \'{usrName}\' AND Password = \'{self.txtPasswdLogin.text()}\'')
+            cur.execute(f'SELECT Name, Email, Password FROM UsersDB WHERE Name = \'{usrName}\' AND Password = \'{self.txtPasswdLogin.text()}\'')
             data = cur.fetchone()
             if data:
                 QMessageBox.information(self.tab_7, 'Successfully loged in', 'You have successfully loged in, you may now browse the app freely', QMessageBox.Ok)
+                self.groupBoxEditInfo.setEnabled(True)
+                self.txtUpdateUser.setText(data[0])
+                self.txtUpdateEmail.setText(data[1])
             else:
                 QMessageBox.warning(self.tab_7, 'Error', 'No mathcing Username or Password were found, please make sure you have entered everything correctly', QMessageBox.Ok)
 
