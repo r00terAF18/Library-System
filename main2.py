@@ -444,6 +444,9 @@ class Ui_MainWindow(object):
                 connection.close()
             else:
                 QMessageBox.warning(self.tab_7, 'Error', 'No mathcing Username or Password were found, please make sure you have entered everything correctly', QMessageBox.Ok)
+            
+            connection.close()
+
 
         def editUser():
             connection = sqlite3.connect('LibraryDB.db')
@@ -457,10 +460,10 @@ class Ui_MainWindow(object):
             if passwd == passwd2:
                 cur.execute(f'UPDATE UsersDB SET Name = \'{usrName}\', Email = \'{email}\', Password = \'{passwd2}\' WHERE Name = \'{usrName}\' AND Password = \'{passwd}\'')
                 connection.commit()
-                connection.close()
             else:
                 QMessageBox.warning(self.tab_7, 'Error', 'No mathcing Username or Password were found, please make sure you have entered everything correctly', QMessageBox.Ok)
 
+            connection.close()
 
         ### BOOKS ###
 
