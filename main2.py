@@ -452,14 +452,17 @@ class Ui_MainWindow(object):
             connection = sqlite3.connect('LibraryDB.db')
             cur = connection.cursor()
 
+            originalUsrName = self.txtUserLogin.text()
+            originalPasswd = self.txtPasswdLogin.text()
             usrName = self.txtUpdateUser.text()
             email = self.txtUpdateEmail.text()
             passwd = self.txtUpdatePasswd.text()
             passwd2 = self.txtUpdateConfirmPasswd.text()
 
             if passwd == passwd2:
-                cur.execute(f'UPDATE UsersDB SET Name = \'{usrName}\', Email = \'{email}\', Password = \'{passwd2}\' WHERE Name = \'{usrName}\' AND Password = \'{passwd}\'')
+                cur.execute(f'UPDATE UsersDB SET Name = \'{usrName}\', Email = \'{email}\', Password = \'{passwd2}\' WHERE Name = \'{originalUsrName}\' AND Password = \'{originalPasswd}\'')
                 connection.commit()
+                QMessageBox.information(self.tab_7, 'Info updated', 'Your data hase been successfully updated, please login again', QMessageBox.Ok)
             else:
                 QMessageBox.warning(self.tab_7, 'Error', 'No mathcing Username or Password were found, please make sure you have entered everything correctly', QMessageBox.Ok)
 
