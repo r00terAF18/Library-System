@@ -384,7 +384,6 @@ class Ui_MainWindow(object):
         def showSettingsTab():
             self.mainTab.setCurrentIndex(3)
             updateSettingsDB()
-            updateOperationsDB()
 
         def showThemeWindow():
             self.ThemeWindow.setVisible(True)
