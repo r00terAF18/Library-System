@@ -434,11 +434,31 @@ class Ui_MainWindow(object):
             data = cur.fetchone()
             if data:
                 QMessageBox.information(self.tab_7, 'Successfully loged in', 'You have successfully loged in, you may now browse the app freely', QMessageBox.Ok)
-                self.groupBoxEditInfo.setEnabled(True)
+                self.txtUpdateUser.setEnabled(True)
+                self.txtUpdateEmail.setEnabled(True)
+                self.txtUpdatePasswd.setEnabled(True)
+                self.txtUpdateConfirmPasswd.setEnabled(True)
+                self.btnUpdateUser.setEnabled(True)
                 self.txtUpdateUser.setText(data[0])
                 self.txtUpdateEmail.setText(data[1])
             else:
                 QMessageBox.warning(self.tab_7, 'Error', 'No mathcing Username or Password were found, please make sure you have entered everything correctly', QMessageBox.Ok)
+
+        def editUser():
+            connection = sqlite3.connect('LibraryDB.db')
+            cur = connection.cursor()
+
+            usrName = self.txtUpdateUser.text()
+            email = self.txtUpdateEmail.text()
+            passwd = self.txtUpdatePasswd.text()
+            passwd2 = self.txtUpdateConfirmPasswd.text()
+            if passwd == passwd2:
+                cur.execute(f'UPDATE UsersDB SET Name = \'{usrname}\', Email = \'{email}\', Password = \'{passwd2}\' WHERE Name = \'{usrName}\' AND Password = \'{passwd}\'')
+                connection.commit()
+                connection.close()
+            else:
+                QMessageBox.warning(self.tab_7, 'Error', 'No mathcing Username or Password were found, please make sure you have entered everything correctly', QMessageBox.Ok)
+
 
         ### BOOKS ###
 
@@ -670,6 +690,7 @@ class Ui_MainWindow(object):
         self.btnDeleteBook.clicked.connect(deleteBook)
         self.btnLogin.clicked.connect(login)
         self.btnRegister.clicked.connect(addUser)
+        self.btnUpdateUser.clicked.connect(editUser)
 
 
     def retranslateUi(self, MainWindow):
