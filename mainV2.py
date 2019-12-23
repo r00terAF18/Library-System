@@ -36,6 +36,7 @@ class MainApp(QMainWindow, ui):
         self.btnMainDayToDay.clicked.connect(self.showDayToDay)
         self.btnMainBooks.clicked.connect(self.showBooksTab)
         self.btnMainUsers.clicked.connect(self.showUsersTab)
+        self.btnMainClients.clicked.connect(self.showClientsTab)
         self.btnMainSettings.clicked.connect(self.showSettingsTab)
         self.btnAddCategory.clicked.connect(self.addNewCat)
         self.btnAddAuthor.clicked.connect(self.addNewAutohr)
@@ -90,8 +91,11 @@ class MainApp(QMainWindow, ui):
     def showUsersTab(self):
         self.mainTab.setCurrentIndex(2)
 
-    def showSettingsTab(self):
+    def showClientsTab(self):
         self.mainTab.setCurrentIndex(3)
+
+    def showSettingsTab(self):
+        self.mainTab.setCurrentIndex(4)
 
     ### USERS ###
 
