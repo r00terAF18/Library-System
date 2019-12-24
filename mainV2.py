@@ -49,6 +49,7 @@ class MainApp(QMainWindow, ui):
         self.btnLogin.clicked.connect(self.login)
         self.btnRegister.clicked.connect(self.addUser)
         self.btnUpdateUser.clicked.connect(self.editUser)
+        self.btnSaveNewClient.clicked.connect(self.addNewClient)
 
         ### Theme Window ###
     def showThemeWindow(self):
@@ -178,10 +179,9 @@ class MainApp(QMainWindow, ui):
 
         name = self.txtNewClientName.text()
         email = self.txtNewClientEmail.text()
-        nID = self.txtNewClientID.text()
+        nID = int(self.txtNewClientID.text())
 
-        query = '''INSERT INTO ClientsDB(Name, Email, NationalID) VALUES(?, ?, ?)'''
-        cur.execute(query, (name, email, nID, ))
+        cur.execute('INSERT INTO ClientsDB(Name, Email, "National ID") VALUES(?, ?, ?)', (name, email, nID, ))
         connection.commit()
         connection.close()
 
