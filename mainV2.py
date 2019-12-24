@@ -185,6 +185,16 @@ class MainApp(QMainWindow, ui):
         connection.commit()
         connection.close()
 
+    def searchClient(self):
+        connection = sqlite3.connect('LibraryDB.db')
+        cur = connection.cursor()
+
+        searchName = self.txtSearchClientName.text()
+        # name = self.txtEditClientName.text()
+        # email = self.txtEditClientEmail.text()
+        # nID = int(self.txtEditClientID.text())
+        cur.execute()
+
     ### BOOKS ###
 
     def searchBook(self):
