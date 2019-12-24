@@ -171,6 +171,20 @@ class MainApp(QMainWindow, ui):
 
         connection.close()
 
+    ### Clients ####
+    def addNewClient(self):
+        connection = sqlite3.connect('LibraryDB.db')
+        cur = connection.cursor()
+
+        name = self.txtNewClientName.text()
+        email = self.txtNewClientEmail.text()
+        nID = self.txtNewClientID.text()
+
+        query = '''INSERT INTO ClientsDB(Name, Email, NationalID) VALUES(?, ?, ?)'''
+        cur.execute(query, (name, email, nID, ))
+        connection.commit()
+        connection.close()
+
     ### BOOKS ###
 
     def searchBook(self):
