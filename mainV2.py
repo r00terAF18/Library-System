@@ -10,7 +10,7 @@ from PyQt5.uic import loadUiType
 
 import icons_rc
 
-ui,_ = loadUiType('Library System UI v2.ui')
+ui,_ = loadUiType('Library System UI v3.ui')
 
 class MainApp(QMainWindow, ui):
     def __init__(self):

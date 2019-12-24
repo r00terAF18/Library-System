@@ -16,6 +16,12 @@
     <verstretch>0</verstretch>
    </sizepolicy>
   </property>
+  <property name="maximumSize">
+   <size>
+    <width>968</width>
+    <height>516</height>
+   </size>
+  </property>
   <property name="font">
    <font>
     <family>Times New Roman</family>
@@ -265,6 +271,51 @@
       <property name="currentIndex">
        <number>0</number>
       </property>
+      <widget class="QWidget" name="tab_AllBooks">
+       <attribute name="title">
+        <string>All Books</string>
+       </attribute>
+       <widget class="QTableWidget" name="tableAllBooks">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>841</width>
+          <height>421</height>
+         </rect>
+        </property>
+        <column>
+         <property name="text">
+          <string>Title</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Code</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Category</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Author</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Publisher</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Price</string>
+         </property>
+        </column>
+       </widget>
+      </widget>
       <widget class="QWidget" name="tab_5">
        <attribute name="title">
         <string>Add New Book</string>
@@ -838,6 +889,213 @@
       </widget>
      </widget>
     </widget>
+    <widget class="QWidget" name="tab_Clients">
+     <attribute name="title">
+      <string>Clients</string>
+     </attribute>
+     <widget class="QTabWidget" name="tabBooks_2">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>851</width>
+        <height>451</height>
+       </rect>
+      </property>
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="tab_AllClients">
+       <attribute name="title">
+        <string>All Clients</string>
+       </attribute>
+       <widget class="QTableWidget" name="tableWidget">
+        <property name="geometry">
+         <rect>
+          <x>0</x>
+          <y>0</y>
+          <width>841</width>
+          <height>421</height>
+         </rect>
+        </property>
+        <column>
+         <property name="text">
+          <string>Client Name</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Email</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>National ID</string>
+         </property>
+        </column>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="tab_AddNewClient">
+       <attribute name="title">
+        <string>Add New Client</string>
+       </attribute>
+       <widget class="QLineEdit" name="txtNewClientName">
+        <property name="geometry">
+         <rect>
+          <x>270</x>
+          <y>100</y>
+          <width>311</width>
+          <height>24</height>
+         </rect>
+        </property>
+        <property name="placeholderText">
+         <string>Enter Client Name</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="btnSaveNewClient">
+        <property name="geometry">
+         <rect>
+          <x>360</x>
+          <y>200</y>
+          <width>131</width>
+          <height>24</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Save Client Data</string>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="txtNewClientID">
+        <property name="geometry">
+         <rect>
+          <x>270</x>
+          <y>160</y>
+          <width>311</width>
+          <height>24</height>
+         </rect>
+        </property>
+        <property name="echoMode">
+         <enum>QLineEdit::Normal</enum>
+        </property>
+        <property name="placeholderText">
+         <string>Enter Client National ID</string>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="txtNewClientEmail">
+        <property name="geometry">
+         <rect>
+          <x>270</x>
+          <y>130</y>
+          <width>311</width>
+          <height>24</height>
+         </rect>
+        </property>
+        <property name="placeholderText">
+         <string>Enter Client Email</string>
+        </property>
+       </widget>
+      </widget>
+      <widget class="QWidget" name="tab_EditDltClient">
+       <attribute name="title">
+        <string>Edit or Delete Client</string>
+       </attribute>
+       <widget class="QPushButton" name="btnSaveEditClient">
+        <property name="geometry">
+         <rect>
+          <x>430</x>
+          <y>200</y>
+          <width>101</width>
+          <height>23</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Save Client Data</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="btnSearchClient">
+        <property name="geometry">
+         <rect>
+          <x>600</x>
+          <y>30</y>
+          <width>111</width>
+          <height>23</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Search for Client</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="btnDeleteClient">
+        <property name="geometry">
+         <rect>
+          <x>310</x>
+          <y>200</y>
+          <width>101</width>
+          <height>23</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>Delete Client</string>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="txtEditClientName">
+        <property name="geometry">
+         <rect>
+          <x>270</x>
+          <y>100</y>
+          <width>311</width>
+          <height>24</height>
+         </rect>
+        </property>
+        <property name="placeholderText">
+         <string>Enter Client Name</string>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="txtEditClientEmail">
+        <property name="geometry">
+         <rect>
+          <x>270</x>
+          <y>130</y>
+          <width>311</width>
+          <height>24</height>
+         </rect>
+        </property>
+        <property name="placeholderText">
+         <string>Enter Client Email</string>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="txtEditClientID">
+        <property name="geometry">
+         <rect>
+          <x>270</x>
+          <y>160</y>
+          <width>311</width>
+          <height>24</height>
+         </rect>
+        </property>
+        <property name="echoMode">
+         <enum>QLineEdit::Normal</enum>
+        </property>
+        <property name="placeholderText">
+         <string>Enter Client National ID</string>
+        </property>
+       </widget>
+       <widget class="QLineEdit" name="txtSearchClientName">
+        <property name="geometry">
+         <rect>
+          <x>270</x>
+          <y>30</y>
+          <width>311</width>
+          <height>24</height>
+         </rect>
+        </property>
+        <property name="placeholderText">
+         <string>Enter Client Name</string>
+        </property>
+       </widget>
+      </widget>
+     </widget>
+    </widget>
     <widget class="QWidget" name="tab_4">
      <attribute name="title">
       <string>Settings</string>
@@ -1003,8 +1261,8 @@
      <rect>
       <x>20</x>
       <y>10</y>
-      <width>81</width>
-      <height>71</height>
+      <width>71</width>
+      <height>61</height>
      </rect>
     </property>
     <property name="text">
@@ -1025,9 +1283,9 @@
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>100</y>
-      <width>81</width>
-      <height>71</height>
+      <y>90</y>
+      <width>71</width>
+      <height>61</height>
      </rect>
     </property>
     <property name="text">
@@ -1048,9 +1306,9 @@
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>190</y>
-      <width>81</width>
-      <height>71</height>
+      <y>170</y>
+      <width>71</width>
+      <height>61</height>
      </rect>
     </property>
     <property name="text">
@@ -1071,9 +1329,9 @@
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>370</y>
-      <width>81</width>
-      <height>71</height>
+      <y>410</y>
+      <width>71</width>
+      <height>61</height>
      </rect>
     </property>
     <property name="text">
@@ -1094,9 +1352,9 @@
     <property name="geometry">
      <rect>
       <x>20</x>
-      <y>280</y>
-      <width>81</width>
-      <height>71</height>
+      <y>330</y>
+      <width>71</width>
+      <height>61</height>
      </rect>
     </property>
     <property name="text">
@@ -1126,7 +1384,8 @@
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: rgb(160, 160, 160);</string>
+     <string notr="true">
+</string>
     </property>
     <property name="title">
      <string/>
@@ -1206,18 +1465,31 @@
      </property>
     </widget>
    </widget>
+   <widget class="QPushButton" name="btnMainClients">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>250</y>
+      <width>71</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="icon">
+     <iconset resource="icons.qrc">
+      <normaloff>:/Icon/User.png</normaloff>:/Icon/User.png</iconset>
+    </property>
+    <property name="iconSize">
+     <size>
+      <width>60</width>
+      <height>60</height>
+     </size>
+    </property>
+   </widget>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
-  <widget class="QMenuBar" name="menubar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>968</width>
-     <height>21</height>
-    </rect>
-   </property>
-  </widget>
  </widget>
  <resources>
   <include location="icons.qrc"/>
