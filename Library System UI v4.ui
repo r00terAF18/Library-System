@@ -1080,7 +1080,7 @@
          <string>Enter Client National ID</string>
         </property>
        </widget>
-       <widget class="QLineEdit" name="txtSearchClientName">
+       <widget class="QLineEdit" name="txtSearchClientID">
         <property name="geometry">
          <rect>
           <x>270</x>
