@@ -191,9 +191,7 @@ class MainApp(QMainWindow, ui):
         cur = connection.cursor()
 
         searchID = int(self.txtSearchClientID.text())
-        # name = self.txtEditClientName.text()
-        # email = self.txtEditClientEmail.text()
-        # nID = int(self.txtEditClientID.text())
+
         cur.execute(f'SELECT * FROM ClientsDB WHERE "National ID" = \'{searchID}\'')
         data = cur.fetchone()
 
@@ -207,9 +205,13 @@ class MainApp(QMainWindow, ui):
         cur = connection.cursor()
 
         searchID = int(self.txtSearchClientID.text())
-        # name = self.txtEditClientName.text()
-        # email = self.txtEditClientEmail.text()
-        # nID = int(self.txtEditClientID.text())
+        name = self.txtEditClientName.text()
+        email = self.txtEditClientEmail.text()
+        nID = int(self.txtEditClientID.text())
+
+        cur.execute(f'UPDATE ClientsDB SET Name=\'{name}\', Email=\'{email}\', "National ID"=\'{nID}\' WHERE Name=\'{searchID}\'')
+        connection.commit()
+        connection.close()
 
     ### BOOKS ###
 
