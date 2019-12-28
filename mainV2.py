@@ -51,6 +51,8 @@ class MainApp(QMainWindow, ui):
         self.btnUpdateUser.clicked.connect(self.editUser)
         self.btnSaveNewClient.clicked.connect(self.addNewClient)
         self.btnSearchClient.clicked.connect(self.searchClient)
+        self.btnSaveEditClient.clicked.connect(self.editClient)
+        self.btnDeleteClient.clicked.connect(self.deleteClient)
 
         ### Theme Window ###
     def showThemeWindow(self):
@@ -209,9 +211,13 @@ class MainApp(QMainWindow, ui):
         email = self.txtEditClientEmail.text()
         nID = int(self.txtEditClientID.text())
 
-        cur.execute(f'UPDATE ClientsDB SET Name=\'{name}\', Email=\'{email}\', "National ID"=\'{nID}\' WHERE Name=\'{searchID}\'')
+        cur.execute(f'UPDATE ClientsDB SET Name=\'{name}\', Email=\'{email}\', "National ID"=\'{nID}\' WHERE "National ID"=\'{searchID}\'')
         connection.commit()
         connection.close()
+
+    def deleteClient(self):
+        connection = sqlite3.connect('LibraryDB.db')
+        cur = connection.cursor()
 
     ### BOOKS ###
 
