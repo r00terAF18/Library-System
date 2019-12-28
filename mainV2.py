@@ -219,6 +219,21 @@ class MainApp(QMainWindow, ui):
         connection = sqlite3.connect('LibraryDB.db')
         cur = connection.cursor()
 
+        searchID = int(self.txtSearchClientID.text())
+
+        message = f"Are you sure that you want to delete the following Client >>> {searchID}"
+        warning = QMessageBox.warning(self.tab_6, 'Delete Book', 'Are you sure you want to delete this Book?', QMessageBox.Yes | QMessageBox.No)
+        if warning == QMessageBox.Yes:
+            cur.execute(f'DELETE FROM ClientsDB WHERE "National ID"=\'{searchID}\'')
+            connection.commit()
+            connection.close()
+            self.txtSearchClientID.setText('')
+            self.txtEditClientName.setText('')
+            self.txtEditClientEmail.setText('')
+            self.txtEditClientID.setText('')
+        else:
+            connection.close()
+
     ### BOOKS ###
 
     def searchBook(self):
