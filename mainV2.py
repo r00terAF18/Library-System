@@ -194,13 +194,22 @@ class MainApp(QMainWindow, ui):
         # name = self.txtEditClientName.text()
         # email = self.txtEditClientEmail.text()
         # nID = int(self.txtEditClientID.text())
-        cur.execute(f'SELECT * FROM ClientsDB WHERE National ID = \'{searchID}\'')
+        cur.execute(f'SELECT * FROM ClientsDB WHERE "National ID" = \'{searchID}\'')
         data = cur.fetchone()
 
         if data:
             self.txtEditClientName.setText(data[1])
             self.txtEditClientEmail.setText(data[2])
             self.txtEditClientID.setText(str(data[3]))
+
+    def editClient(self):
+        connection = sqlite3.connect('LibraryDB.db')
+        cur = connection.cursor()
+
+        searchID = int(self.txtSearchClientID.text())
+        # name = self.txtEditClientName.text()
+        # email = self.txtEditClientEmail.text()
+        # nID = int(self.txtEditClientID.text())
 
     ### BOOKS ###
 
