@@ -394,13 +394,13 @@ class MainApp(QMainWindow, ui):
                 self.tableCategory.insertRow(rowCount)
 
     def showClients(self):
-        self.clearTables()
         connection = sqlite3.connect('LibraryDB.db')
         cur = connection.cursor()
         cur.execute('SELECT Name, Email, "National ID" FROM ClientsDB')
         data = cur.fetchall()
 
         if data:
+            self.tableAllClients.setRowCount(0)
             self.tableAllClients.insertRow(0)
             for row, form in enumerate(data):
                 for col, item in enumerate(form):
@@ -411,13 +411,13 @@ class MainApp(QMainWindow, ui):
                 self.tableAllClients.insertRow(rowCount)
 
     def showBooks(self):
-        self.clearTables()
         connection = sqlite3.connect('LibraryDB.db')
         cur = connection.cursor()
         cur.execute('SELECT Name, Descreption, Code, Category, Author, Publisher, Price FROM BooksDB')
         data = cur.fetchall()
 
         if data:
+            self.tableAllBooks.setRowCount(0)
             self.tableAllBooks.insertRow(0)
             for row, form in enumerate(data):
                 for col, item in enumerate(form):
@@ -498,8 +498,6 @@ class MainApp(QMainWindow, ui):
         self.tableMain.clearContents()
         self.tableMain.setColumnCount(1)
         self.tableMain.setRowCount(0)
-        self.tableAllBooks.setRowCount(0)
-        self.tableAllClients.setRowCount(0)
 
 
 
