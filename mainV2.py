@@ -193,7 +193,7 @@ class MainApp(QMainWindow, ui):
             QMessageBox.warning(self.tab_7, 'Error', 'No mathcing Username or Password were found, please make sure you have entered everything correctly', QMessageBox.Ok)
 
         connection.close()
-        
+
 
     ### Clients ####
 
@@ -498,11 +498,7 @@ class MainApp(QMainWindow, ui):
         self.tableMain.clearContents()
         self.tableMain.setColumnCount(1)
         self.tableMain.setRowCount(0)
-        self.tableAllBooks.clearContents()
-        self.tableAllBooks.setColumnCount(1)
         self.tableAllBooks.setRowCount(0)
-        self.tableAllClients.clearContents()
-        self.tableAllClients.setColumnCount(1)
         self.tableAllClients.setRowCount(0)
 
 
