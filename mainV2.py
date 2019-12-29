@@ -103,6 +103,7 @@ class MainApp(QMainWindow, ui):
     def showSettingsTab(self):
         self.mainTab.setCurrentIndex(4)
 
+
     ### OPERATIONS ###
 
     def addNewOperation(self):
@@ -117,6 +118,7 @@ class MainApp(QMainWindow, ui):
         connection.commit()
         connection.close()
         self.txtOperationBookTitle.setText('')
+
 
     ### USERS ###
 
@@ -191,6 +193,7 @@ class MainApp(QMainWindow, ui):
             QMessageBox.warning(self.tab_7, 'Error', 'No mathcing Username or Password were found, please make sure you have entered everything correctly', QMessageBox.Ok)
 
         connection.close()
+        
 
     ### Clients ####
 
