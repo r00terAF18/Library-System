@@ -251,9 +251,9 @@ class MainApp(QMainWindow, ui):
             self.txtEditBookTitle.setText(data[1])
             self.txtEditBookDesc.setText(data[2])
             self.txtEditBookCode.setText(data[3])
-            self.cmbBoxEditCat.setCurrentIndex(int(data[4]))
-            self.cmbBoxEditAuthor.setCurrentIndex(int(data[5]))
-            self.cmbBoxEditPublisher.setCurrentIndex(int(data[6]))
+            self.cmbBoxEditCat.setCurrentText(data[4])
+            self.cmbBoxEditAuthor.setCurrentText(data[5])
+            self.cmbBoxEditPublisher.setCurrentText(data[6])
             self.txtEditBookPrice.setText(str(data[7]))
 
     def editBook(self):
@@ -264,9 +264,9 @@ class MainApp(QMainWindow, ui):
         bookTitle = self.txtEditBookTitle.text()
         bookCode = self.txtEditBookCode.text()
         bookDesc = self.txtEditBookDesc.toPlainText()
-        bookCat = self.cmbBoxEditCat.currentIndex()
-        bookAuthor = self.cmbBoxEditAuthor.currentIndex()
-        bookPublisher = self.cmbBoxEditPublisher.currentIndex()
+        bookCat = self.cmbBoxEditCat.currentText()
+        bookAuthor = self.cmbBoxEditAuthor.currentText()
+        bookPublisher = self.cmbBoxEditPublisher.currentText()
         bookPrice = float(self.txtEditBookPrice.text())
 
         cur.execute(f'UPDATE BooksDB SET Name=\'{bookTitle}\', Descreption=\'{bookDesc}\', Code=\'{bookCode}\', Category=\'{bookCat}\', Author=\'{bookAuthor}\', Publisher=\'{bookPublisher}\', Price=\'{bookPrice}\' WHERE Name=\'{searchBookTitle}\'')
@@ -307,9 +307,9 @@ class MainApp(QMainWindow, ui):
         bookTitle = self.txtAddBookTitle.text()
         bookCode = self.txtAddBookCode.text()
         bookDesc = self.txtAddBookDesc.toPlainText()
-        bookCat = self.cmbBoxAddBookCat.currentIndex()
-        bookAuthor = self.cmbBoxAddBookAuthor.currentIndex()
-        bookPublisher = self.cmbBoxAddBookPublisher.currentIndex()
+        bookCat = self.cmbBoxAddBookCat.currentText()
+        bookAuthor = self.cmbBoxAddBookAuthor.currentText()
+        bookPublisher = self.cmbBoxAddBookPublisher.currentText()
         bookPrice = float(self.txtAddBookPrice.text())
 
         cur.execute(f'INSERT INTO BooksDB(Name, Descreption, Code, Category, Author, Publisher, Price) VALUES(?, ?, ?, ?, ?, ?, ?)', (bookTitle, bookDesc, bookCode, bookCat, bookAuthor, bookPublisher, bookPrice, ))
