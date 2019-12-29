@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>968</width>
-    <height>516</height>
+    <height>528</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -19,7 +19,7 @@
   <property name="maximumSize">
    <size>
     <width>968</width>
-    <height>516</height>
+    <height>528</height>
    </size>
   </property>
   <property name="font">
@@ -77,32 +77,27 @@
       </property>
       <column>
        <property name="text">
-        <string>Code</string>
+        <string>Book Name</string>
        </property>
       </column>
       <column>
        <property name="text">
-        <string>Title</string>
+        <string>Client ID</string>
        </property>
       </column>
       <column>
        <property name="text">
-        <string>Author</string>
+        <string>Type</string>
        </property>
       </column>
       <column>
        <property name="text">
-        <string>Publisher</string>
+        <string>From</string>
        </property>
       </column>
       <column>
        <property name="text">
-        <string>Category</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>Price</string>
+        <string>Due Date</string>
        </property>
       </column>
      </widget>
@@ -130,7 +125,7 @@
        <rect>
         <x>20</x>
         <y>30</y>
-        <width>251</width>
+        <width>131</width>
         <height>20</height>
        </rect>
       </property>
@@ -252,6 +247,19 @@
       </property>
       <property name="text">
        <string>Duration(W)</string>
+      </property>
+     </widget>
+     <widget class="QLineEdit" name="txtOperationClientsID">
+      <property name="geometry">
+       <rect>
+        <x>160</x>
+        <y>30</y>
+        <width>131</width>
+        <height>20</height>
+       </rect>
+      </property>
+      <property name="placeholderText">
+       <string>Enter Client ID</string>
       </property>
      </widget>
     </widget>
@@ -1490,6 +1498,25 @@
       <width>60</width>
       <height>60</height>
      </size>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="btnExportOperations">
+    <property name="geometry">
+     <rect>
+      <x>840</x>
+      <y>470</y>
+      <width>121</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::LeftToRight</enum>
+    </property>
+    <property name="text">
+     <string>Export to CSV</string>
+    </property>
+    <property name="flat">
+     <bool>false</bool>
     </property>
    </widget>
   </widget>
