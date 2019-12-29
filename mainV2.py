@@ -1,6 +1,7 @@
 import os
 import sqlite3
 import sys
+import datetime
 
 from PyQt5 import QtGui, uic
 from PyQt5.QtCore import *
@@ -27,6 +28,7 @@ class MainApp(QMainWindow, ui):
         self.mainTab.tabBar().setVisible(False)
         self.showBooks()
         self.showClients()
+        self.updateOperationsDB()
 
     ### Button Handler ####
     def ButtonHandler(self):
@@ -111,13 +113,19 @@ class MainApp(QMainWindow, ui):
         cur = connection.cursor()
 
         bookTitle = self.txtOperationBookTitle.text()
-        operation = self.comboBoxOperation.currentText().text()
+        clientID = self.txtOperationClientsID.text()
+        operation = self.comboBoxOperation.currentText()
         duration = int(self.comboBoxDuration.currentText())
+        toDay = datetime.date.today()
+        dueDate = toDay + datetime.timedelta(days=int(duration))
 
-        cur.execute('INSERT INTO OperationsDB(Name, Type, Duration) VALUES(?, ?, ?)', (bookTitle, operation, duration))
+        cur.execute('INSERT INTO OperationsDB("Book Name", "Client ID", Type, Start, "Due Date") VALUES(?, ?, ?, ?, ?)', (bookTitle, clientID, operation, toDay, duration, ))
         connection.commit()
         connection.close()
         self.txtOperationBookTitle.setText('')
+        self.txtOperationClientsID.setText('')
+
+        self.updateOperationsDB()
 
 
     ### USERS ###
@@ -343,6 +351,8 @@ class MainApp(QMainWindow, ui):
         
         self.showBooks()
 
+        ### SETTINGS ####
+
     def addNewCat(self):
         connection = sqlite3.connect('LibraryDB.db')
         cur = connection.cursor()
@@ -373,25 +383,24 @@ class MainApp(QMainWindow, ui):
         self.txtAddNewPublisher.setText('')
         self.updateSettingsDB()
 
+    ### TABLES ####
+
     def updateOperationsDB(self):
-        ### first we need to clear out the entries and then add the new ones
-        self.clearTables()
-        ### Update the databse view for Categories ###
         connection = sqlite3.connect('LibraryDB.db')
-        # connection.row_factory = sqlite3.Row
         cur = connection.cursor()
-        cur.execute('SELECT Name FROM CategoriesDB')
+        cur.execute('SELECT "Book Name", "Client ID", Type, Start, "Due Date" FROM OperationsDB')
         data = cur.fetchall()
 
         if data:
-            self.tableCategory.insertRow(0)
+            self.tableMain.setRowCount(0)
+            self.tableMain.insertRow(0)
             for row, form in enumerate(data):
                 for col, item in enumerate(form):
-                    self.tableCategory.setItem(row, col, QTableWidgetItem(str(item)))
+                    self.tableMain.setItem(row, col, QTableWidgetItem(str(item)))
                     col += 1
 
-                rowCount = self.tableCategory.rowCount()
-                self.tableCategory.insertRow(rowCount)
+                rowCount = self.tableMain.rowCount()
+                self.tableMain.insertRow(rowCount)
 
     def showClients(self):
         connection = sqlite3.connect('LibraryDB.db')
@@ -495,9 +504,6 @@ class MainApp(QMainWindow, ui):
         self.tablePublisher.clearContents()
         self.tablePublisher.setColumnCount(1)
         self.tablePublisher.setRowCount(0)
-        self.tableMain.clearContents()
-        self.tableMain.setColumnCount(1)
-        self.tableMain.setRowCount(0)
 
 
 
