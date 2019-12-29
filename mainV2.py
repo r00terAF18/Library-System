@@ -103,6 +103,21 @@ class MainApp(QMainWindow, ui):
     def showSettingsTab(self):
         self.mainTab.setCurrentIndex(4)
 
+    ### OPERATIONS ###
+
+    def addNewOperation(self):
+    connection = sqlite3.connect('LibraryDB.db')
+    cur = connection.cursor()
+
+    bookTitle = self.txtOperationBookTitle.text()
+    operation = self.comboBoxOperation.currentText().text()
+    duration = int(self.comboBoxDuration.currentText())
+
+    cur.execute('INSERT INTO OperationsDB(Name, Type, Duration) VALUES(?, ?, ?)', (bookTitle, operation, duration))
+    connection.commit()
+    connection.close()
+    self.txtOperationBookTitle.setText('')
+
     ### USERS ###
 
     def addUser(self):
@@ -178,6 +193,7 @@ class MainApp(QMainWindow, ui):
         connection.close()
 
     ### Clients ####
+
     def addNewClient(self):
         connection = sqlite3.connect('LibraryDB.db')
         cur = connection.cursor()
@@ -189,6 +205,8 @@ class MainApp(QMainWindow, ui):
         cur.execute('INSERT INTO ClientsDB(Name, Email, "National ID") VALUES(?, ?, ?)', (name, email, nID, ))
         connection.commit()
         connection.close()
+
+        self.showClients()
 
     def searchClient(self):
         connection = sqlite3.connect('LibraryDB.db')
@@ -217,6 +235,8 @@ class MainApp(QMainWindow, ui):
         connection.commit()
         connection.close()
 
+        self.showClients()
+
     def deleteClient(self):
         connection = sqlite3.connect('LibraryDB.db')
         cur = connection.cursor()
@@ -235,6 +255,8 @@ class MainApp(QMainWindow, ui):
             self.txtEditClientID.setText('')
         else:
             connection.close()
+        
+        self.showClients()
 
     ### BOOKS ###
 
@@ -273,6 +295,8 @@ class MainApp(QMainWindow, ui):
         connection.commit()
         connection.close()
 
+        self.showBooks()
+
     def deleteBook(self):
         connection = sqlite3.connect('LibraryDB.db')
         cur = connection.cursor()
@@ -286,19 +310,9 @@ class MainApp(QMainWindow, ui):
             connection.close()
         else:
             connection.close()
+        self.showBooks()
 
-    def addNewOperation(self):
-        connection = sqlite3.connect('LibraryDB.db')
-        cur = connection.cursor()
 
-        bookTitle = self.txtOperationBookTitle.text()
-        operation = self.comboBoxOperation.currentText().text()
-        duration = int(self.comboBoxDuration.currentText())
-
-        cur.execute('INSERT INTO OperationsDB(Name, Type, Duration) VALUES(?, ?, ?)', (bookTitle, operation, duration))
-        connection.commit()
-        connection.close()
-        self.txtOperationBookTitle.setText('')
 
     def addNewBook(self):
         connection = sqlite3.connect('LibraryDB.db')
@@ -323,6 +337,8 @@ class MainApp(QMainWindow, ui):
         self.cmbBoxAddBookCat.setCurrentIndex(0)
         self.cmbBoxAddBookAuthor.setCurrentIndex(0)
         self.cmbBoxAddBookPublisher.setCurrentIndex(0)
+        
+        self.showBooks()
 
     def addNewCat(self):
         connection = sqlite3.connect('LibraryDB.db')
@@ -375,6 +391,7 @@ class MainApp(QMainWindow, ui):
                 self.tableCategory.insertRow(rowCount)
 
     def showClients(self):
+        self.clearTables()
         connection = sqlite3.connect('LibraryDB.db')
         cur = connection.cursor()
         cur.execute('SELECT Name, Email, "National ID" FROM ClientsDB')
@@ -391,6 +408,7 @@ class MainApp(QMainWindow, ui):
                 self.tableAllClients.insertRow(rowCount)
 
     def showBooks(self):
+        self.clearTables()
         connection = sqlite3.connect('LibraryDB.db')
         cur = connection.cursor()
         cur.execute('SELECT Name, Descreption, Code, Category, Author, Publisher, Price FROM BooksDB')
@@ -477,6 +495,12 @@ class MainApp(QMainWindow, ui):
         self.tableMain.clearContents()
         self.tableMain.setColumnCount(1)
         self.tableMain.setRowCount(0)
+        self.tableAllBooks.clearContents()
+        self.tableAllBooks.setColumnCount(1)
+        self.tableAllBooks.setRowCount(0)
+        self.tableAllClients.clearContents()
+        self.tableAllClients.setColumnCount(1)
+        self.tableAllClients.setRowCount(0)
 
 
 
