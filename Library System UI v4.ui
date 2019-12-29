@@ -291,6 +291,11 @@
         </column>
         <column>
          <property name="text">
+          <string>Descreption</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
           <string>Code</string>
          </property>
         </column>
@@ -909,7 +914,7 @@
        <attribute name="title">
         <string>All Clients</string>
        </attribute>
-       <widget class="QTableWidget" name="tableWidget">
+       <widget class="QTableWidget" name="tableAllClients">
         <property name="geometry">
          <rect>
           <x>0</x>
