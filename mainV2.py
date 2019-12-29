@@ -106,17 +106,17 @@ class MainApp(QMainWindow, ui):
     ### OPERATIONS ###
 
     def addNewOperation(self):
-    connection = sqlite3.connect('LibraryDB.db')
-    cur = connection.cursor()
+        connection = sqlite3.connect('LibraryDB.db')
+        cur = connection.cursor()
 
-    bookTitle = self.txtOperationBookTitle.text()
-    operation = self.comboBoxOperation.currentText().text()
-    duration = int(self.comboBoxDuration.currentText())
+        bookTitle = self.txtOperationBookTitle.text()
+        operation = self.comboBoxOperation.currentText().text()
+        duration = int(self.comboBoxDuration.currentText())
 
-    cur.execute('INSERT INTO OperationsDB(Name, Type, Duration) VALUES(?, ?, ?)', (bookTitle, operation, duration))
-    connection.commit()
-    connection.close()
-    self.txtOperationBookTitle.setText('')
+        cur.execute('INSERT INTO OperationsDB(Name, Type, Duration) VALUES(?, ?, ?)', (bookTitle, operation, duration))
+        connection.commit()
+        connection.close()
+        self.txtOperationBookTitle.setText('')
 
     ### USERS ###
 
