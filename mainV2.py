@@ -117,9 +117,9 @@ class MainApp(QMainWindow, ui):
         operation = self.comboBoxOperation.currentText()
         duration = int(self.comboBoxDuration.currentText())
         toDay = datetime.date.today()
-        dueDate = toDay + datetime.timedelta(days=int(duration))
+        dueDate = toDay + datetime.timedelta(days=duration)
 
-        cur.execute('INSERT INTO OperationsDB("Book Name", "Client ID", Type, Start, "Due Date") VALUES(?, ?, ?, ?, ?)', (bookTitle, clientID, operation, toDay, duration, ))
+        cur.execute('INSERT INTO OperationsDB("Book Name", "Client ID", Type, Start, "Due Date") VALUES(?, ?, ?, ?, ?)', (bookTitle, clientID, operation, toDay, dueDate, ))
         connection.commit()
         connection.close()
         self.txtOperationBookTitle.setText('')
