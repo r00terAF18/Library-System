@@ -127,6 +127,10 @@ class MainApp(QMainWindow, ui):
 
         self.updateOperationsDB()
 
+    ### EXPORTING DB ###
+
+    
+
 
     ### USERS ###
 
