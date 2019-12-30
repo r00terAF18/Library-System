@@ -2,6 +2,8 @@ import os
 import sqlite3
 import sys
 import datetime
+# from xlrd import *
+# from xlsxwriter import *
 
 from PyQt5 import QtGui, uic
 from PyQt5.QtCore import *
@@ -57,6 +59,9 @@ class MainApp(QMainWindow, ui):
         self.btnSearchClient.clicked.connect(self.searchClient)
         self.btnSaveEditClient.clicked.connect(self.editClient)
         self.btnDeleteClient.clicked.connect(self.deleteClient)
+        self.btnExportOperations.clicked.connect(self.exportOperations)
+        self.btnExportBooks.clicked.connect(self.exportBooks)
+        self.btnExportClients.clicked.connect(self.exportClients)
 
         ### Theme Window ###
     def showThemeWindow(self):
@@ -129,7 +134,35 @@ class MainApp(QMainWindow, ui):
 
     ### EXPORTING DB ###
 
-    
+    def exportOperations(self):
+        connection = sqlite3.connect('LibraryDB.db')
+        cur = connection.cursor()
+
+        cur.execute('SELECT "Book Name", "Client ID", Type, Start, "Due Date" FROM OperationsDB')
+        data = cur.fetchall()
+
+        if data:
+            print(data)
+
+    def exportBooks(self):
+        connection = sqlite3.connect('LibraryDB.db')
+        cur = connection.cursor()
+
+        cur.execute('SELECT Name, Descreption, Code, Category, Author, Publisher, Price FROM BooksDB')
+        data = cur.fetchall()
+
+        if data:
+            print(data)
+
+    def exportClients(self):
+        connection = sqlite3.connect('LibraryDB.db')
+        cur = connection.cursor()
+
+        cur.execute('SELECT Name, Email, "National ID" FROM ClientsDB')
+        data = cur.fetchall()
+
+        if data:
+            print(data)
 
 
     ### USERS ###
