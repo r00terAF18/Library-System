@@ -196,7 +196,21 @@ class MainApp(QMainWindow, ui):
         data = cur.fetchall()
 
         if data:
-            print(data)
+            wb = Workbook('Clients.xlsx')
+            sheet1 = wb.add_worksheet()
+            sheet1.write(0,0,"Name")
+            sheet1.write(0,1,"Email")
+            sheet1.write(0,2,"National ID")
+
+            rowNum = 1
+            for row in data:
+                colNum = 0
+                for item in row:
+                    sheet1.write(rowNum, colNum, str(item))
+                    colNum += 1
+                rowNum += 1
+
+            wb.close()
 
 
     ### USERS ###
