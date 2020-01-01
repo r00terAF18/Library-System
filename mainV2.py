@@ -1,15 +1,15 @@
+import datetime
 import os
 import sqlite3
 import sys
-import datetime
-# from xlrd import *
-# from xlsxwriter import *
 
 from PyQt5 import QtGui, uic
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 from PyQt5.uic import loadUiType
+from xlrd import *
+from xlsxwriter import *
 
 import icons_rc
 
