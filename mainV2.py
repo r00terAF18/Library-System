@@ -21,7 +21,7 @@ class MainApp(QMainWindow, ui):
         self.setupUi(self)
         self.UI_Handler()
         self.ButtonHandler()
-    
+
     ### UI_Handler ###
     def UI_Handler(self):
         self.setDarkOrangeTheme()
@@ -66,7 +66,7 @@ class MainApp(QMainWindow, ui):
         ### Theme Window ###
     def showThemeWindow(self):
         self.ThemeWindow.setVisible(True)
-    
+
     def hideThemeWindow(self):
         self.ThemeWindow.setVisible(False)
 
@@ -86,7 +86,7 @@ class MainApp(QMainWindow, ui):
         style = style.read()
         MainApp.setStyleSheet(self, style)
         self.ThemeWindow.setVisible(False)
-    
+
     def setDarkOrangeTheme(self):
         style = open('Themes\DarkOrange.css', 'r')
         style = style.read()
@@ -234,7 +234,7 @@ class MainApp(QMainWindow, ui):
             QMessageBox.warning(self.tab_7, 'Empty field', 'Please make sure that you have filled all teh fields', QMessageBox.Ok)
         elif email == '' or email == ' ':
             QMessageBox.warning(self.tab_7, 'Empty field', 'Please make sure that you have filled all teh fields', QMessageBox.Ok)
-        
+
         connection.close()
 
         self.txtNewUser.setText('')
@@ -263,7 +263,7 @@ class MainApp(QMainWindow, ui):
             connection.close()
         else:
             QMessageBox.warning(self.tab_7, 'Error', 'No mathcing Username or Password were found, please make sure you have entered everything correctly', QMessageBox.Ok)
-        
+
         connection.close()
 
 
@@ -351,7 +351,7 @@ class MainApp(QMainWindow, ui):
             self.txtEditClientID.setText('')
         else:
             connection.close()
-        
+
         self.showClients()
 
     ### BOOKS ###
@@ -433,7 +433,7 @@ class MainApp(QMainWindow, ui):
         self.cmbBoxAddBookCat.setCurrentIndex(0)
         self.cmbBoxAddBookAuthor.setCurrentIndex(0)
         self.cmbBoxAddBookPublisher.setCurrentIndex(0)
-        
+
         self.showBooks()
 
         ### SETTINGS ####
@@ -546,7 +546,7 @@ class MainApp(QMainWindow, ui):
 
                         rowCount = self.tableAuthor.rowCount()
                         self.tableAuthor.insertRow(rowCount)
-                
+
                 elif table == 'CategoriesDB':
                     self.tableCategory.insertRow(0)
                     for row, form in enumerate(data):
